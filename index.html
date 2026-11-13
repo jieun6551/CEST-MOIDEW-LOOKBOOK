@@ -1096,15 +1096,9 @@ function closeUploadModal() {
 // ===================================
 
 function loadSavedLookbooks() {
-  const saved = JSON.parse(
-    localStorage.getItem('myLookbooks') || '[]'
-  );
-
-  // 저장된 룩북을 갤러리에 다시 표시
-  saved.reverse().forEach(item => {
-    addGalleryCard(item);
-  });
+  renderSavedLookbooks();
 }
+
 // 저장된 룩북 복원
 loadSavedLookbooks();
 
@@ -1412,19 +1406,41 @@ function deleteLookbook(){
 }
 
 
-// ===================================
-// 업로드한 게시글 다시 출력
-// ===================================
 
-function renderSavedLookbooks() {
+async function renderSavedLookbooks() {
+  // 기존 사용자 룩북 카드 제거
   document.querySelectorAll('.user-look-card').forEach(card => {
     card.remove();
   });
 
-  getSavedLookbooks().forEach(item => {
-    addGalleryCard(item);
-  });
+  try {
+    // Supabase에서 게시글 불러오기
+    const { data, error } = await supabaseClient
+      .from('lookbooks')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    // 갤러리에 출력
+    data.forEach(row => {
+      addGalleryCard({
+        id: row.id,
+        title: row.title,
+        note: row.description || '',
+        image: row.image_url,
+        date: row.created_at,
+        likes: 0,
+        liked: false
+      });
+    });
+
+  } catch (error) {
+    console.error('룩북 목록 불러오기 오류:', error);
+    toast('룩북 목록을 불러오지 못했어요.');
+  }
 }
+
 
 // ===================================
 // 샘플 갤러리 초기화 및 좋아요 복원
