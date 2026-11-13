@@ -1152,7 +1152,7 @@ function openLookbookDetail(id, type, card){
   let item;
 
   if(type === 'user'){
-    item = getSavedLookbooks().find(
+    item = card || getSavedLookbooks().find(
       look => String(look.id) === String(id)
     );
     if(!item) return;
@@ -1459,7 +1459,7 @@ function initSampleGallery(){
 
     // 카드 클릭 시 상세 팝업
     card.onclick = () => {
-      openLookbookDetail(id, 'sample', card);
+      openLookbookDetail(item.id, 'user', item);
     };
 
     const countElement = card.querySelector('.look-meta i');
