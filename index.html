@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쎄무아듀 — STYLE YOUR MOMENT</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Serif+KR:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+:root{--paper:#f8f5ee;--ink:#25231f;--muted:#817b70;--line:#d8d1c5;--accent:#a17e64;--white:#fffdf8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-weight:300}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.topline{height:27px;background:#171613;color:#f6f0e6;text-align:center;font:10px Georgia;letter-spacing:.08em;padding:7px}
+header{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4.5%;background:var(--paper);position:sticky;top:0;z-index:10}
+.logo{white-space:nowrap; display: flex; margin-top: 0.7%;}.nav{display:flex;gap:75px;font:11px Georgia;letter-spacing:.08em}.nav a{color:inherit;text-decoration:none;cursor:pointer}.nav a:hover{color:var(--accent)}
+.icons{display:flex;gap:40px;font-size:17px}.page{display:none}.page.active{display:block}
+.hero{min-height:620px;display:grid;grid-template-columns:1.05fr .95fr;gap:0}
+.hero-copy{padding:12% 10% 10% 13%;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font:11px Georgia;letter-spacing:.22em;color:var(--accent);margin-bottom:24px}
+h1{font:clamp(48px,6.6vw,94px)/.98 'DM Serif Display',serif;font-weight:400;letter-spacing:-.035em;margin:0 0 26px}
+.hero-copy p{font:14px/2 'Noto Serif KR',serif;color:#6f685f;max-width:450px}
+.cta{border:1px solid var(--ink);background:var(--ink);color:var(--white);padding:16px 28px;letter-spacing:.08em;font:11px Georgia;width:max-content;margin-top:26px;transition:.2s}
+.cta2{border:1px solid #171613;background:transparent;color:var(--ink);letter-spacing:.08em;font:11px Georgia;width:max-content;margin-top:26px;padding:16px 28px;transition:.2s;appearance:none}
+.cta:hover{background:transparent;color:var(--ink)}
+.hero-image{min-height:620px;background:linear-gradient(0deg,rgba(0,0,0,.05),transparent),url('https://images.unsplash.com/photo-1619384846683-8dede3452564?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D') center 35%/cover}
+.marquee{padding:19px 4%;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;font:12px Georgia;letter-spacing:.18em}
+.section{padding:92px 7%}.section-head{text-align:center;margin-bottom:48px}.section-head .eyebrow{margin-bottom:14px}.section-head h2{font:42px 'DM Serif Display',serif;font-weight:400;margin:0 0 12px}.section-head p{font:13px 'Noto Serif KR',serif;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1050px;margin:auto}.step{border-top:1px solid var(--ink);padding:20px 8px}.step b{font:24px 'DM Serif Display',serif;color:var(--accent)}.step h3{font:17px 'Noto Serif KR',serif;font-weight:bold;margin:14px 0 8px}.step p{font-size:12px;line-height:1.9;color:var(--muted)}
+.benefit{background:#eee8dd;padding:65px 7%;text-align:center}.benefit h2{font:36px 'DM Serif Display',serif;font-weight:400;margin:0 0 30px}.benefit-grid{display:flex;justify-content:center;gap:8%;flex-wrap:wrap}.benefit-grid div{min-width:180px}.benefit-grid strong{display:block;font:600 18px 'Noto Serif KR',serif;margin-bottom:9px}.benefit-grid span{font-size:12px;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:25px 0;margin-bottom:30px;font:11px Georgia;letter-spacing:.08em}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 18px}.look-card{cursor:pointer}.look-card img{width:100%;height:430px;object-fit:cover;display:block;filter:saturate(.85)}.look-meta{display:flex;justify-content:space-between;padding:13px 2px}.look-meta strong{font:15px 'Noto Serif KR',serif;font-weight:400}.look-meta span{font-size:11px;color:var(--muted)}
+.creator{display:grid;grid-template-columns:1fr;max-width:1200px;margin:auto;align-items:start}
+.creator-preview{background:#eee8dd;padding:22px;position:sticky;top:110px;height:max-content; width: 600px;}
+.preview-frame{background:#f8f5ee;height:calc(100vh - 140px);min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px 18px;position:relative;overflow:hidden}
+.preview-title{font:30px 'DM Serif Display',serif;margin:0 0 4px}.preview-note{font-size:11px;color:var(--muted);margin-top:8px}.mannequin-stage{width:min(100%,390px);height:475px;position:relative;margin:8px auto 0;background:radial-gradient(ellipse at 50% 45%,#fffdf8 0%,#f8f5ee 68%)}.silhouette{position:absolute;inset:0;width:100%;height:100%;z-index:1}.garment{position:absolute;z-index:2;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.03);display:none;pointer-events:none}.garment.visible{display:block}.garment.outer{left:23%;top:19%;width:54%;height:42%}.garment.top{left:29%;top:23%;width:42%;height:34%}.garment.bottom{left:29%;top:52%;width:42%;height:43%}.preview-legend{display:flex;gap:16px;font-size:10px;color:var(--muted);margin-top:8px}.preview-legend span:before{content:'';display:inline-block;width:7px;height:7px;border:1px dashed var(--accent);border-radius:50%;margin-right:5px}
+.section-create{display:grid;grid-template-columns:600px minmax(0,500px);gap:34px;max-width:1200px;margin:auto;align-items:start}
+.creator{display:contents}
+.creator-preview{position:sticky;top:100px;align-self:start;width:600px;background:#eee8dd;padding:22px}
+.creator-panel{position:sticky;top:100px;align-self:start;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden}
+.creator-panel h2{font:38px 'DM Serif Display',serif;font-weight:400;margin:0 0 8px}.creator-panel>p{font:13px 'Noto Serif KR',serif;color:var(--muted);line-height:1.8}
+.tabs{display:flex;gap:18px;border-bottom:1px solid var(--line);margin:30px 0 18px}.tabs button{background:none;border:0;padding:12px 0;color:var(--muted);font-size:12px}.tabs button.selected{color:var(--ink);border-bottom:1px solid var(--ink)}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;align-content:start}
+.product{border:1px solid transparent;padding:5px;cursor:pointer;background:transparent;text-align:left}
+.product.selected{border-color:var(--accent);background:#eee8dd}
+.product img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.product span{font-size:11px;display:block;margin-top:8px}
+.product small{color:var(--muted);font-size:10px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;align-content:start;overflow-y:auto;min-height:0;flex:1}
+.section-create + .field{margin-top:20px;}
+.field + .field{margin-top:20px}
+.field label{font-weight: 500; font:17px 'Noto Serif KR',serif;}
+.field input,.field textarea{width:100%;border:1px solid var(--line);background:transparent;padding:13px;font-size:12px;outline:none}.field textarea{height:80px;resize:vertical}
+.preview-legend span.active:before{background:var(--accent);border:1px solid var(--accent);box-shadow:0 0 5px rgba(161,126,100,.35)}
+.submit{width:100%;margin-top:22px;padding:16px;background:var(--ink);color:white;border:1px solid var(--ink);font:11px Georgia;letter-spacing:.12em}.submit:hover{background:transparent;color:var(--ink)}
+.complete{text-align:center;padding:130px 20px}.complete .check{font:48px Georgia;color:var(--accent)}.complete h2{font:54px 'DM Serif Display',serif;font-weight:400;margin:20px 0}.complete p{font:14px/2 'Noto Serif KR',serif;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:42px 5%;display:flex;justify-content:space-between;gap:20px;font-size:12px;}footer a{color:#000;text-decoration:none;pointer-events:auto;cursor:pointer;position:relative;z-index:10;}footer .footlogo{font:24px 'DM Serif Display',serif;color:var(--ink)}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:13px 22px;font-size:12px;opacity:0;pointer-events:none;transition:.3s;z-index:30}.toast.show{opacity:1}
+@media(max-width:760px){header{height:64px;padding:0 5%}.logo{font-size:21px}.nav{display:none}.hero{grid-template-columns:1fr}.hero-copy{padding:70px 8%}.hero-image{min-height:420px;grid-row:1}.hero-copy h1{font-size:62px}.section{padding:65px 6%}.steps{grid-template-columns:1fr;gap:8px}.gallery-grid{grid-template-columns:repeat(2,1fr);gap:20px 10px}.look-card img{height:280px}.creator{grid-template-columns:1fr;gap:25px}.creator-preview{position:static}.preview-frame{min-height:540px}.mannequin-stage{height:430px}.creator-panel h2{font-size:32px}footer{flex-direction:column}}
+.upload-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  padding:20px;
+  background:rgba(37,35,31,.6);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+}
+
+.upload-modal.show{display:flex}
+
+.upload-box{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  width:100%;
+  max-width:850px;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:45px;
+  background:var(--paper);
+  align-items:center;
+}
+
+.upload-close{
+  position:absolute;
+  top:12px;
+  right:18px;
+  z-index:2;
+  border:0;
+  background:transparent;
+  font-size:28px;
+  color:var(--ink);
+  cursor:pointer;
+}
+
+.upload-preview{
+  min-width:0;
+  min-height:430px;
+  padding:24px 15px;
+  background:#eee8dd;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.upload-preview #uploadPreview{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:15px;
+}
+
+.upload-preview #uploadPreview .mannequin-stage{
+  width:100%;
+  max-width:390px;
+  height:400px;
+  margin:0 auto;
+  flex-shrink:0;
+}
+
+.upload-form{width:100%;text-align:center}
+.upload-form h2{font:36px 'DM Serif Display',serif;font-weight:400;margin:10px 0}
+.upload-form>p{font:13px 'Noto Serif KR',serif;color:var(--muted);margin-bottom:30px}
+.upload-form .field{text-align:left;margin-top:18px}
+.upload-form .submit{margin-top:25px}
+
+@media(max-width:650px){
+  .upload-box{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:45px 24px 30px;
+    max-height:90vh;
+    overflow-y:auto;
+  }
+  .upload-preview{min-height:300px}
+  .upload-preview #uploadPreview .mannequin-stage{height:280px}
+}
+
+/* LOOKBOOK DETAIL POPUP */
+.detail-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:rgba(37,35,31,.65);
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+
+.detail-modal.show{
+  display:flex;
+}
+
+.detail-box{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:35px;
+  width:100%;
+  max-width:850px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--paper);
+  padding:40px;
+  align-items:center;
+}
+
+.detail-close{
+  position:absolute;
+  top:12px;
+  right:18px;
+  border:0;
+  background:transparent;
+  font-size:28px;
+  color:var(--ink);
+  cursor:pointer;
+  z-index:2;
+}
+
+.detail-image{
+  background:#eee8dd;
+  padding:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.detail-image img{
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+}
+
+.detail-content{
+  min-width:0;
+  padding:15px 5px;
+}
+
+.detail-content h2{
+  font:32px 'DM Serif Display',serif;
+  font-weight:400;
+  margin:15px 0;
+  overflow-wrap:anywhere;
+}
+
+.detail-content p{
+  font:13px/2 'Noto Serif KR',serif;
+  color:var(--muted);
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  min-height:50px;
+}
+
+.detail-date{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:25px;
+}
+
+.detail-like{
+  display:block;
+  margin-top:25px;
+  padding:12px 20px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink);
+  font:14px Georgia;
+  cursor:pointer;
+}
+
+.detail-like.liked{
+  color:var(--accent);
+  border-color:var(--accent);
+}
+
+#ownerActions{
+  margin-top:15px;
+}
+
+.detail-delete,
+.detail-cancel{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  background:transparent;
+  border:1px solid var(--line);
+  font:11px Georgia;
+  letter-spacing:.1em;
+  color:var(--ink);
+  cursor:pointer;
+}
+
+@media(max-width:650px){
+  .detail-box{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:45px 24px 25px;
+    max-height:90vh;
+  }
+
+  .detail-image img{
+    max-height:300px;
+  }
+}
+
+.section-head p.gallery-notice {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-top: 12px;
+}
+</style>
+</head>
+<body>
+<div class="topline">✿  WELCOME COUPON 10% OFF  ✿</div>
+<header>
+  <div class="logo"><a href="#" onclick="showPage('home'); return false;"><img src="LOGO.png" alt="logo" width="200px"></a></div>  
+  <nav class="nav">
+    <a onclick="showPage('home')">HOME</a><a onclick="showPage('gallery')">LOOKBOOK</a><a onclick="showPage('create')">CREATE YOUR LOOK</a><a href="#benefits">EVENT</a>
+  </nav>
+  <div class="icons"><span><img src="icon_search.png" alt="search" width="15px"></span><span><img src="icon_profile.png" alt="profile" width="15px"></span><span><img src="icon_heart.png" alt="heart" width="15px"></span></div>
+</header>
+
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">CEST MOIDEW — CUSTOMER LOOKBOOK EVENT</div>
+      <h1>STYLE<br>YOUR<br>MOMENT.</h1>
+      <p>마음에 드는 옷을 발견했다면, 나만의 방식으로 스타일링해 보세요.<br>당신의 취향이 또 다른 누군가의 영감이 됩니다.</p>
+      <button class="cta" onclick="showPage('create')">CREATE YOUR LOOK&nbsp; ↗</button>
+    </div>
+    <div class="hero-image"></div>
+  </div>
+  <div class="marquee">A LITTLE INSPIRATION, A LOOK THAT IS YOURS — C'EST MOIDEW</div>
+  <div class="section">
+    <div class="section-head"><div class="eyebrow">HOW TO PARTICIPATE</div><h2>Your style, your story.</h2><p>세 가지 단계로 나만의 룩북을 완성해 보세요.</p></div>
+    <div class="steps">
+      <div class="step"><b>01</b><h3>GET INSPIRED</h3><p>다른 고객들이 완성한 룩북을 둘러보며 새로운 코디 아이디어를 발견해 보세요.</p></div>
+      <div class="step"><b>02</b><h3>MAKE YOUR LOOK</h3><p>마음에 드는 상품을 클릭해 조합하고, 나만의 스타일을 완성해 보세요.</p></div>
+      <div class="step"><b>03</b><h3>SHARE YOUR STYLE</h3><p>룩북을 제출하고 이벤트에 참여해 특별한 혜택을 받아보세요.</p></div>
+    </div>
+  </div>
+  <div class="benefit" id="benefits">
+    <div class="eyebrow">A LITTLE GIFT FOR YOU</div><h2>Thank you for sharing your style.</h2>
+    <div class="benefit-grid"><div><strong>PARTICIPATION GIFT</strong><span>참여자 전원 자사몰 N% 할인 쿠폰</span></div><div><strong>TOP 3 LOOKBOOK</strong><span>우수 룩북 선정 및 추가 구매 혜택</span></div></div>
+    <button class="cta" onclick="showPage('gallery')">EXPLORE LOOKBOOKS&nbsp; ↗</button>
+  </div>
+</section>
+
+<section id="gallery" class="page section">
+  <div class="section-head"><div class="eyebrow">C'EST MOIDEW COMMUNITY</div><h2>LOOKBOOK GALLERY</h2><p>다른 사람의 취향에서 나만의 스타일 영감을 찾아보세요.</p><p class="gallery-notice">※ 이미지에 표시되는 제목은 룩북 등록 당시 입력한 제목으로 유지됩니다. 게시글 제목을 수정해도 이미지 속 제목은 변경되지 않습니다.</p></div>
+  <div class="toolbar"><span>CURATED LOOKS — 2026</span></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div style="text-align:center;margin-top:55px"><button class="cta" onclick="showPage('create')">MAKE YOUR OWN LOOK&nbsp; ↗</button></div>
+</section>
+
+<section id="create" class="page section">
+  <div class="section-head"><div class="eyebrow">YOUR STYLE STARTS HERE</div><h2>CREATE YOUR LOOK</h2><p>상품을 선택해 나만의 코디 룩북을 만들어 보세요.</p></div>
+  <div class="section-create">  <div class="creator">
+    <div class="creator-preview"><div class="preview-frame" id="lookPreview">
+      <div class="eyebrow">C'EST MOIDEW — MY LOOKBOOK</div>
+      <div class="preview-title" id="previewTitle">My lovely look</div>
+      <div class="mannequin-stage" id="mannequinStage">      
+        <img class="garment outer" id="wearOUTER" alt="선택한 아우터">
+        <img class="garment top" id="wearTOP" alt="선택한 상의">
+        <img class="garment bottom" id="wearBOTTOM" alt="선택한 하의">
+      </div>
+      <div class="preview-note" id="previewCount">0 / 3 ITEMS SELECTED</div>
+      <div class="preview-legend"><span>OUTER</span><span>TOP</span><span>BOTTOM</span></div>
+    </div></div></div>
+    <div class="creator-panel">
+      <h2>Build your outfit.</h2><p>아우터·상의·하의를 각각 하나씩 선택해 코디를 완성해 보세요. <br> 같은 카테고리에서는 한 상품만 선택할 수 있어요.</p>
+      <div class="tabs"><button class="selected" onclick="setCategory('OUTER',this)">OUTER</button><button onclick="setCategory('TOP',this)">TOP</button><button onclick="setCategory('BOTTOM',this)">BOTTOM</button></div>
+      <div class="products" id="products"></div>
+    </div>
+  </div>
+<button class="submit" onclick="submitLook()">COMPLETE MY LOOK&nbsp; ↗</button>
+    
+</section>
+
+<section id="complete" class="page">
+  <div class="complete"><div class="check">✳</div><div class="eyebrow">YOUR LOOKBOOK IS READY</div><h2 id="completeTitle">Your look is lovely.</h2><p>나만의 코디가 룩북으로 등록되었어요.<br>완성한 룩북 이미지를 저장해 간직해 보세요.</p><div id="completeLook" style="max-width:420px;margin:28px auto;padding:20px;background:#eee8dd"></div><button class="cta" onclick="downloadLookbook()">DOWNLOAD LOOKBOOK ↓</button><br><button class="cta2" onclick="showPage('create')">MAKE ANOTHER LOOK ↗&nbsp;</button><button class="cta" onclick="openUploadModal()">UPLOAD MY LOOKBOOK ↗</button>
+<br></div>
+
+</section>
+<div class="upload-modal" id="uploadModal">
+  <div class="upload-box">
+    <button class="upload-close" onclick="closeUploadModal()">×</button>
+
+    <!-- 왼쪽: 룩북 이미지 -->
+    <div class="upload-preview">
+      <div class="eyebrow">MY LOOKBOOK</div>
+      <div id="uploadPreview"></div>
+    </div>
+
+    <!-- 오른쪽: 제목과 설명 -->
+    <div class="upload-form">
+      <div class="eyebrow">C'EST MOIDEW COMMUNITY</div>
+      <h2>Share your style.</h2>
+      <p>나만의 룩북을 갤러리에 등록해 보세요.</p>
+
+      <div class="field">
+        <label>LOOKBOOK TITLE</label>
+        <input id="uploadTitle" placeholder="룩북 제목을 입력해 주세요.">
+      </div>
+
+      <div class="field">
+        <label>YOUR STORY</label>
+        <textarea id="uploadNote" maxlength="200"
+          placeholder="이 코디에 담긴 나만의 취향을 소개해 주세요."></textarea>
+      </div>
+
+      <button class="submit" onclick="confirmUploadLookbook()">
+        UPLOAD LOOKBOOK ↗
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- LOOKBOOK DETAIL MODAL -->
+<div class="detail-modal" id="detailModal">
+  <div class="detail-box">
+
+    <button class="detail-close" onclick="closeLookbookDetail()">×</button>
+
+    <div class="detail-image">
+      <img id="detailImage" src="" alt="룩북 이미지">
+    </div>
+
+    <div class="detail-content">
+      <div class="eyebrow">C'EST MOIDEW COMMUNITY</div>
+
+      <!-- 게시글 확인 -->
+      <div id="detailView">
+        <h2 id="detailTitle"></h2>
+        <p id="detailNote"></p>
+        <div class="detail-date" id="detailDate"></div>
+
+        <!-- 좋아요는 팝업 안에서만 가능 -->
+        <button class="detail-like" id="detailLike"
+          onclick="toggleCurrentLike()">
+          ♡ 0
+        </button>
+
+        <!-- 작성자 전용 버튼 -->
+        <div id="ownerActions">
+          <button class="submit" onclick="editLookbook()">EDIT LOOKBOOK</button>
+          <button class="detail-delete" onclick="deleteLookbook()">DELETE LOOKBOOK</button>
+        </div>
+      </div>
+
+      <!-- 게시글 수정 -->
+      <div id="detailEdit" style="display:none">
+        <div class="field">
+          <label>LOOKBOOK TITLE</label>
+          <input id="editTitle" maxlength="60">
+        </div>
+
+        <div class="field">
+          <label>YOUR STORY</label>
+          <textarea id="editNote" maxlength="200"></textarea>
+        </div>
+
+        <button class="submit" onclick="saveLookbookEdit()">SAVE CHANGES ↗</button>
+        <button class="detail-cancel" onclick="cancelLookbookEdit()">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer><div class="footlogo"><img src="f_LOGO.png" alt="logo" width="30px"></div><div>CONTACT&nbsp;&nbsp; FAQ<br><br>MON–FRI 10:00AM–6:30PM<br>© CEST MOIDEW</div><div>SHOP GUIDE&nbsp;&nbsp; TERMS OF USE&nbsp;&nbsp; PRIVACY POLICY</div><div><a href="https://instagram.com/cestmoidew_official/" target="_blank"     rel="noopener noreferrer">INSTAGRAM ↗</a></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const catalog = {
+  OUTER: [
+    ['Cest_Rosette collar a-line coat', './look_img/OUTER_1.png'],
+    ['Cest_Contrast trim ribbed cardigan', './look_img/OUTER_2.png'],
+    ['Cest_Bow button collar jacket', './look_img/OUTER_3.png'],
+    ['Cest_Ribbon tie stand collar jacket', './look_img/OUTER_4.png'],
+    ['Cest_Floral ribbon pocket jacket', './look_img/OUTER_5.png'],
+    ['Cest_Double tie cropped jacket', './look_img/OUTER_6.png'],
+    ['Cest_Ribbon button duffle coat', './look_img/OUTER_8.png'],
+    ['Cest_Leopard collar wool jacket', './look_img/OUTER_9.png'],
+    ['Cest_Heart jacquard knit cardigan', './look_img/OUTER_10.png']
+  ],
+  TOP: [
+    ['Cest_Frill neck knit top', './look_img/TOP.png']
+  ],
+  BOTTOM: [
+    ['Cest_Lace bow a-line skirt', './look_img/BOTTOM_1.png'],
+    ['Cest_Mid-length mesh skirt', './look_img/BOTTOM_2.png'],
+    ['Cest_Ribbon rhinestone flare pants', './look_img/BOTTOM_3.png'],
+    ['Cest_Lace velvet frill mini skirt', './look_img/BOTTOM_4.png'],
+    ['Cest_Corduroy midi skirt', './look_img/BOTTOM_5.png'],
+    ['Cest_White mesh maxi skirt', './look_img/BOTTOM_6.png'],
+    ['Cest_Tiered ruffle mini skirt', './look_img/BOTTOM_8.png'],
+    ['Cest_High-waisted pocket skirt', './look_img/BOTTOM_9.png'],
+    ['Cest_Embroidered cake skirt', './look_img/BOTTOM_10.png']
+  ]
+};
+
+let selected = {
+  OUTER: null,
+  TOP: null,
+  BOTTOM: null
+};
+
+
+// ===================================
+// 페이지 이동 및 페이지 상태 저장
+// ===================================
+
+function showPage(id, addHistory = true) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  sessionStorage.setItem('activePage', id);
+  sessionStorage.setItem('savedScrollY', '0');
+
+  if (addHistory) {
+    history.pushState({ page: id }, '', '#' + id);
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  if (id === 'create') {
+    renderProducts('OUTER');
+  }
+}
+
+
+// ===================================
+// 카테고리 전환
+// ===================================
+
+function setCategory(cat, btn) {
+  document.querySelectorAll('.tabs button').forEach(b => {
+    b.classList.remove('selected');
+  });
+
+  btn.classList.add('selected');
+  renderProducts(cat);
+}
+
+
+// ===================================
+// 상품 목록 출력
+// ===================================
+
+function renderProducts(cat) {
+  const root = document.getElementById('products');
+  root.innerHTML = '';
+
+  catalog[cat].forEach(item => {
+    const active = selected[cat] &&
+      selected[cat].name === item[0];
+
+    const el = document.createElement('button');
+
+    el.className = 'product' + (active ? ' selected' : '');
+
+    el.innerHTML = `
+      <img src="${item[1]}" alt="${item[0]}">
+      <span>${item[0]}</span>
+      <small>${active ? 'SELECTED — CLICK TO REMOVE' : 'CLICK TO SELECT'}</small>
+    `;
+
+    el.onclick = () => {
+      selected[cat] = active
+        ? null
+        : { name: item[0], img: item[1] };
+
+      renderProducts(cat);
+      updatePreview();
+    };
+
+    root.appendChild(el);
+  });
+}
+
+
+// ===================================
+// 마네킹 착장 미리보기
+// ===================================
+
+function updatePreview() {
+  ['OUTER', 'TOP', 'BOTTOM'].forEach(cat => {
+    const layer = document.getElementById('wear' + cat);
+    const item = selected[cat];
+
+    if (item) {
+      layer.src = item.img;
+      layer.classList.add('visible');
+      layer.alt = item.name;
+    } else {
+      layer.removeAttribute('src');
+      layer.classList.remove('visible');
+    }
+  });
+
+  const count = Object.values(selected).filter(Boolean).length;
+
+  document.getElementById('previewCount').textContent =
+    count + ' / 3 ITEMS SELECTED';
+
+  document.querySelectorAll('.preview-legend span').forEach((el, i) => {
+    el.classList.toggle('active', !!selected[['OUTER', 'TOP', 'BOTTOM'][i]]);
+  });
+}
+
+
+// ===================================
+// 샘플 룩북 좋아요 토글 및 저장
+// ===================================
+
+function likeCard(card) {
+  const countElement = card.querySelector('.look-meta i');
+  const heartElement = card.querySelector('.look-meta span');
+
+  // 카드마다 고유한 저장 키 생성
+  const imgSrc = card.querySelector('img').getAttribute('src');
+  const key = 'sampleLike_' + imgSrc;
+
+  const saved = JSON.parse(localStorage.getItem(key) || 'null');
+
+  let count = saved ? saved.count : Number(countElement.textContent);
+  let liked = saved ? saved.liked : false;
+
+  // 좋아요 상태 변경
+  liked = !liked;
+  count = Math.max(0, count + (liked ? 1 : -1));
+
+  // 화면 반영
+  card.classList.toggle('liked', liked);
+  countElement.textContent = count;
+  heartElement.firstChild.textContent = liked ? '♥ ' : '♡ ';
+
+  // 저장
+  localStorage.setItem(key, JSON.stringify({
+    liked: liked,
+    count: count
+  }));
+}
+
+// ===================================
+// 룩북 완성
+// ===================================
+
+function submitLook() {
+  const count = Object.values(selected).filter(Boolean).length;
+
+  if (count !== 3) {
+    toast('아우터, 상의, 하의를 각각 하나씩 선택해 주세요.');
+    return;
+  }
+
+  document.getElementById('completeTitle').textContent = 'Your look is lovely.';
+
+  const clone = document.getElementById('mannequinStage').cloneNode(true);
+
+  clone.style.width = '330px';
+  clone.style.height = '402px';
+  clone.style.margin = '0 auto';
+
+  document.getElementById('completeLook').innerHTML = '';
+  document.getElementById('completeLook').appendChild(clone);
+
+  showPage('complete');
+}
+
+
+// ===================================
+// 룩북 다운로드
+// ===================================
+
+function downloadLookbook() {
+  const title = (
+    document.getElementById('uploadTitle')?.value.trim()
+    || 'my-lookbook'
+  ).replace(/[\\/:*?"<>|]/g, '-');
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = 900;
+  canvas.height = 1100;
+
+  ctx.fillStyle = '#f8f5ee';
+  ctx.fillRect(0, 0, 900, 1100);
+
+  ctx.fillStyle = '#25231f';
+  ctx.textAlign = 'center';
+  ctx.font = '48px Georgia';
+  ctx.fillText(title, 450, 100);
+
+  ctx.fillStyle = '#a17e64';
+  ctx.font = '18px Georgia';
+  ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
+
+  const positions = {
+    OUTER: { x: 200, y: 220, w: 500, h: 380 },
+    TOP: { x: 260, y: 250, w: 380, h: 300 },
+    BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
+  };
+
+  const categories = ['OUTER', 'TOP', 'BOTTOM'];
+  const images = categories.filter(cat => selected[cat]);
+
+  if (images.length !== 3) {
+    toast('아우터, 상의, 하의를 모두 선택해 주세요.');
+    return;
+  }
+
+  let loaded = 0;
+
+  images.forEach(cat => {
+    const img = new Image();
+
+    img.onload = () => {
+      const p = positions[cat];
+
+      // 원본 이미지 비율 유지
+      const ratio = Math.min(
+        p.w / img.naturalWidth,
+        p.h / img.naturalHeight
+      );
+
+      const w = img.naturalWidth * ratio;
+      const h = img.naturalHeight * ratio;
+
+      const x = p.x + (p.w - w) / 2;
+      const y = p.y + (p.h - h) / 2;
+
+      ctx.drawImage(img, x, y, w, h);
+
+      loaded++;
+
+      if (loaded === images.length) {
+        const link = document.createElement('a');
+        link.download = title + '.png';
+        link.href = canvas.toDataURL('image/png');
+
+        link.click();
+
+        toast('다운로드를 시작했어요.');
+      }
+    };
+
+    img.onerror = () => {
+      toast('이미지를 불러오지 못했어요. 다시 시도해 주세요.');
+    };
+
+    img.src = selected[cat].img;
+  });
+}
+
+// ===================================
+// 알림 메시지
+// ===================================
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+
+  t.textContent = msg;
+  t.classList.add('show');
+
+  setTimeout(() => {
+    t.classList.remove('show');
+  }, 2000);
+}
+
+
+// ===================================
+// 새로고침 시 페이지 및 스크롤 복원
+// ===================================
+
+// 마지막 페이지 기억
+const savedPage = sessionStorage.getItem('activePage');
+
+const initialPage =
+  savedPage && document.getElementById(savedPage)
+    ? savedPage
+    : document.querySelector('.page.active')?.id
+      || document.querySelector('.page')?.id;
+
+// 페이지 복원
+document.querySelectorAll('.page').forEach(p => {
+  p.classList.toggle('active', p.id === initialPage);
+});
+
+// 초기 상품 목록
+if (initialPage === 'create') {
+  renderProducts('OUTER');
+}
+
+// 미리보기 초기화
+updatePreview();
+
+
+// 스크롤 위치 저장
+let scrollSaveTimer;
+
+window.addEventListener('scroll', () => {
+  clearTimeout(scrollSaveTimer);
+
+  scrollSaveTimer = setTimeout(() => {
+    sessionStorage.setItem(
+      'savedScrollY',
+      window.scrollY
+    );
+  }, 50);
+
+}, { passive: true });
+
+
+// 새로고침 후 스크롤 위치 복원
+function restoreScroll() {
+  const savedY = sessionStorage.getItem('savedScrollY');
+
+  if (savedY !== null) {
+    window.scrollTo(0, Number(savedY));
+  }
+}
+
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(restoreScroll);
+  });
+
+  setTimeout(restoreScroll, 300);
+  setTimeout(restoreScroll, 800);
+});
+
+function openUploadModal() {
+  document.getElementById('uploadTitle').value = '';
+  document.getElementById('uploadNote').value = '';
+
+  const preview = document.getElementById('uploadPreview');
+  preview.innerHTML = '';
+
+  // 완료 페이지의 실제 코디 미리보기 복제
+  const original = document.querySelector('#completeLook .mannequin-stage');
+
+  if (original) {
+    const clone = original.cloneNode(true);
+    clone.style.width = '100%';
+    clone.style.maxWidth = '390px';
+    clone.style.height = '400px';
+    clone.style.margin = '0 auto';
+    preview.appendChild(clone);
+  }
+
+  document.getElementById('uploadModal').classList.add('show');
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('show');
+}
+
+
+// 선택한 옷 이미지로 룩북 PNG 생성
+function createLookbookImage() {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = 900;
+    canvas.height = 1100;
+
+    ctx.fillStyle = '#f8f5ee';
+    ctx.fillRect(0, 0, 900, 1100);
+
+    const title = document.getElementById('uploadTitle').value.trim();
+
+    ctx.fillStyle = '#25231f';
+    ctx.textAlign = 'center';
+    ctx.font = '48px Georgia';
+    ctx.fillText(title, 450, 100, 800);
+
+    ctx.fillStyle = '#a17e64';
+    ctx.font = '18px Georgia';
+    ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
+
+    const positions = {
+      OUTER: { x: 200, y: 220, w: 500, h: 380 },
+      TOP: { x: 260, y: 250, w: 380, h: 300 },
+      BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
+    };
+
+    const categories = ['OUTER', 'TOP', 'BOTTOM'];
+
+    Promise.all(categories.map(cat => {
+      return new Promise((res, rej) => {
+        const img = new Image();
+
+        img.onload = () => {
+          const p = positions[cat];
+          const ratio = Math.min(
+            p.w / img.naturalWidth,
+            p.h / img.naturalHeight
+          );
+
+          const w = img.naturalWidth * ratio;
+          const h = img.naturalHeight * ratio;
+
+          ctx.drawImage(
+            img,
+            p.x + (p.w - w) / 2,
+            p.y + (p.h - h) / 2,
+            w,
+            h
+          );
+
+          res();
+        };
+
+        img.onerror = () => rej(new Error('이미지 로드 실패'));
+        img.src = selected[cat].img;
+      });
+    }))
+    .then(() => resolve(canvas.toDataURL('image/png')))
+    .catch(reject);
+  });
+}
+
+
+// 갤러리에 룩북 카드 추가
+function addGalleryCard(item) {
+  const card = document.createElement('article');
+  card.className = 'look-card user-look-card';
+  card.dataset.id = item.id;
+
+  const img = document.createElement('img');
+  img.src = item.image;
+  img.alt = item.title;
+
+  const meta = document.createElement('div');
+  meta.className = 'look-meta';
+
+  const title = document.createElement('strong');
+  title.textContent = item.title;
+
+  const likes = document.createElement('span');
+  likes.innerHTML = `${item.liked ? '♥' : '♡'} <i>${item.likes || 0}</i>`;
+
+  meta.appendChild(title);
+  meta.appendChild(likes);
+
+  card.appendChild(img);
+  card.appendChild(meta);
+
+  if (item.note) {
+    const note = document.createElement('p');
+    note.className = 'sample-note';
+    note.textContent = item.note;
+    card.appendChild(note);
+  }
+
+  // 카드를 클릭하면 상세 팝업 열기
+  card.onclick = () => {
+    openLookbookDetail(item.id, 'user');
+  };
+
+  document.getElementById('galleryGrid').prepend(card);
+}
+
+
+// 업로드 및 저장
+async function confirmUploadLookbook() {
+  const title = document.getElementById('uploadTitle').value.trim();
+  const note = document.getElementById('uploadNote').value.trim();
+
+  if (!title) {
+    toast('룩북 제목을 입력해 주세요.');
+    return;
+  }
+
+  if (Object.values(selected).some(item => !item)) {
+    toast('아우터, 상의, 하의를 모두 선택해 주세요.');
+    return;
+  }
+
+  try {
+    const image = await createLookbookImage();
+
+    const lookbook = {
+      id: Date.now().toString(),
+      title: title,
+      note: note,
+      image: image,
+      date: new Date().toISOString(),
+      likes: 0,
+      liked: false
+    };
+
+    const saved = JSON.parse(
+      localStorage.getItem('myLookbooks') || '[]'
+    );
+
+    saved.unshift(lookbook);
+
+    // 최근 룩북 3개 저장
+    localStorage.setItem(
+      'myLookbooks',
+      JSON.stringify(saved.slice(0, 3))
+    );
+
+    renderSavedLookbooks();
+
+    closeUploadModal();
+    showPage('gallery');
+    toast('룩북이 갤러리에 등록되었어요!');
+
+  } catch (error) {
+    console.error(error);
+    toast('저장에 실패했어요. 다시 시도해 주세요.');
+  }
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('show');
+}
+
+// ===================================
+// 새로고침 후 저장된 룩북 불러오기
+// ===================================
+
+function loadSavedLookbooks() {
+  const saved = JSON.parse(
+    localStorage.getItem('myLookbooks') || '[]'
+  );
+
+  // 저장된 룩북을 갤러리에 다시 표시
+  saved.reverse().forEach(item => {
+    addGalleryCard(item);
+  });
+}
+// 저장된 룩북 복원
+loadSavedLookbooks();
+
+
+// ===================================
+// 샘플 룩북 좋아요 상태 복원
+// ===================================
+
+function restoreSampleLikes() {
+  document.querySelectorAll('#galleryGrid .look-card:not(.user-look-card)')
+    .forEach(card => {
+      const imgSrc = card.querySelector('img')?.getAttribute('src');
+      if (!imgSrc) return;
+
+      const key = 'sampleLike_' + imgSrc;
+      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+
+      if (!saved) return;
+
+      const countElement = card.querySelector('.look-meta i');
+      const heartElement = card.querySelector('.look-meta span');
+
+      countElement.textContent = saved.count;
+      heartElement.firstChild.textContent = saved.liked ? '♥ ' : '♡ ';
+      card.classList.toggle('liked', saved.liked);
+    });
+}
+
+restoreSampleLikes();
+
+// ===================================
+// 상세 팝업 상태
+// ===================================
+
+let currentDetail = null;
+
+function getSavedLookbooks(){
+  return JSON.parse(localStorage.getItem('myLookbooks') || '[]');
+}
+
+function saveLookbooks(data){
+  localStorage.setItem('myLookbooks', JSON.stringify(data));
+}
+
+
+// ===================================
+// 상세 팝업 열기
+// ===================================
+
+function openLookbookDetail(id, type, card){
+  let item;
+
+  if(type === 'user'){
+    item = getSavedLookbooks().find(
+      look => String(look.id) === String(id)
+    );
+    if(!item) return;
+
+  }else{
+    item = {
+      title: card.querySelector('.look-meta strong')?.textContent || '',
+      note: card.querySelector('.sample-note')?.textContent || '',
+      image: card.querySelector('img')?.src || '',
+      date: ''
+    };
+  }
+
+  currentDetail = {id, type};
+
+  document.getElementById('detailImage').src = item.image;
+  document.getElementById('detailTitle').textContent = item.title;
+  document.getElementById('detailNote').textContent = item.note || '';
+  document.getElementById('detailDate').textContent =
+    item.date ? new Date(item.date).toLocaleDateString('ko-KR') : '';
+
+  document.getElementById('ownerActions').style.display =
+    type === 'user' ? 'block' : 'none';
+
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('detailEdit').style.display = 'none';
+
+  updateDetailLike();
+
+  document.getElementById('detailModal').classList.add('show');
+}
+
+
+// ===================================
+// 팝업 닫기
+// ===================================
+
+function closeLookbookDetail(){
+  document.getElementById('detailModal').classList.remove('show');
+  currentDetail = null;
+}
+
+
+// ===================================
+// 좋아요 정보
+// ===================================
+
+function updateDetailLike(){
+  if(!currentDetail) return;
+
+  let liked = false;
+  let count = 0;
+
+  if(currentDetail.type === 'user'){
+    const item = getSavedLookbooks().find(
+      look => String(look.id) === String(currentDetail.id)
+    );
+    if(!item) return;
+
+    liked = !!item.liked;
+    count = item.likes || 0;
+
+  }else{
+    const all = JSON.parse(localStorage.getItem('sampleLikes') || '{}');
+    const data = all[currentDetail.id];
+
+    const card = document.querySelector(
+      `[data-sample-id="${currentDetail.id}"]`
+    );
+
+    const baseCount = Number(
+      card?.querySelector('.look-meta i')?.textContent || 0
+    );
+
+    liked = data ? data.liked : false;
+    count = data ? data.count : baseCount;
+  }
+
+  const btn = document.getElementById('detailLike');
+  btn.textContent = `${liked ? '♥' : '♡'} ${count}`;
+  btn.classList.toggle('liked', liked);
+}
+
+// ===================================
+// 팝업 좋아요 및 갤러리 숫자 동기화
+// ===================================
+
+function toggleCurrentLike(){
+  if(!currentDetail) return;
+
+  if(currentDetail.type === 'user'){
+
+    const saved = getSavedLookbooks();
+
+    const item = saved.find(
+      look => String(look.id) === String(currentDetail.id)
+    );
+
+    if(!item) return;
+
+    item.liked = !item.liked;
+
+    item.likes = Math.max(
+      0,
+      (item.likes || 0) + (item.liked ? 1 : -1)
+    );
+
+    saveLookbooks(saved);
+
+    // 업로드 게시글 갤러리 숫자 갱신
+    const card = document.querySelector(
+      `.user-look-card[data-id="${currentDetail.id}"]`
+    );
+
+    if(card){
+      const heart = card.querySelector('.look-meta span');
+
+      if(heart){
+        heart.textContent = `♥ ${item.likes}`;
+        card.classList.toggle('liked', item.liked);
+      }
+    }
+
+  } else {
+
+    const all = JSON.parse(
+      localStorage.getItem('sampleLikes') || '{}'
+    );
+
+    const card = document.querySelector(
+      `[data-sample-id="${currentDetail.id}"]`
+    );
+
+    const countElement = card?.querySelector('.look-meta i');
+
+    const baseCount = Number(
+      countElement?.textContent || currentDetail.baseCount || 0
+    );
+
+    const data = all[currentDetail.id] || {
+      liked: false,
+      count: baseCount
+    };
+
+    data.liked = !data.liked;
+
+    data.count = Math.max(
+      0,
+      data.count + (data.liked ? 1 : -1)
+    );
+
+    all[currentDetail.id] = data;
+
+    localStorage.setItem(
+      'sampleLikes',
+      JSON.stringify(all)
+    );
+
+    // 샘플 게시글 갤러리 숫자와 하트 갱신
+    if(card && countElement){
+      countElement.textContent = data.count;
+
+      const heart = card.querySelector('.look-meta span');
+
+      if(heart){
+        heart.firstChild.textContent =
+          data.liked ? '♥ ' : '♡ ';
+      }
+
+      card.classList.toggle('liked', data.liked);
+    }
+  }
+
+  // 팝업 안의 좋아요 숫자도 갱신
+  updateDetailLike();
+}
+
+
+// ===================================
+// 게시글 수정
+// ===================================
+
+function editLookbook(){
+  if(!currentDetail || currentDetail.type !== 'user') return;
+
+  const item = getSavedLookbooks().find(
+    look => String(look.id) === String(currentDetail.id)
+  );
+
+  if(!item) return;
+
+  document.getElementById('editTitle').value = item.title;
+  document.getElementById('editNote').value = item.note || '';
+
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('detailEdit').style.display = 'block';
+}
+
+function cancelLookbookEdit(){
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('detailEdit').style.display = 'none';
+}
+
+function saveLookbookEdit(){
+  if(!currentDetail || currentDetail.type !== 'user') return;
+
+  const title = document.getElementById('editTitle').value.trim();
+  const note = document.getElementById('editNote').value.trim();
+
+  if(!title){
+    toast('룩북 제목을 입력해 주세요.');
+    return;
+  }
+
+  const saved = getSavedLookbooks();
+  const item = saved.find(
+    look => String(look.id) === String(currentDetail.id)
+  );
+
+  if(!item) return;
+
+  item.title = title;
+  item.note = note;
+
+  saveLookbooks(saved);
+  renderSavedLookbooks();
+
+  openLookbookDetail(item.id, 'user');
+  toast('게시글이 수정되었어요!');
+}
+
+
+// ===================================
+// 게시글 삭제
+// ===================================
+
+function deleteLookbook(){
+  if(!currentDetail || currentDetail.type !== 'user') return;
+
+  if(!confirm('이 게시글을 삭제할까요?')) return;
+
+  const saved = getSavedLookbooks().filter(
+    look => String(look.id) !== String(currentDetail.id)
+  );
+
+  saveLookbooks(saved);
+  closeLookbookDetail();
+  renderSavedLookbooks();
+
+  toast('게시글이 삭제되었어요.');
+}
+
+
+// ===================================
+// 업로드한 게시글 다시 출력
+// ===================================
+
+function renderSavedLookbooks() {
+  document.querySelectorAll('.user-look-card').forEach(card => {
+    card.remove();
+  });
+
+  getSavedLookbooks().forEach(item => {
+    addGalleryCard(item);
+  });
+}
+
+// ===================================
+// 샘플 갤러리 초기화 및 좋아요 복원
+// ===================================
+
+function initSampleGallery(){
+
+  const cards = document.querySelectorAll(
+    '#galleryGrid > .look-card:not(.user-look-card)'
+  );
+
+  cards.forEach((card, index) => {
+
+    const id = 'sample-' + index;
+    card.dataset.sampleId = id;
+
+    // 카드 클릭 시 상세 팝업
+    card.onclick = () => {
+      openLookbookDetail(id, 'sample', card);
+    };
+
+    const countElement = card.querySelector('.look-meta i');
+    const heart = card.querySelector('.look-meta span');
+
+    if(!countElement || !heart) return;
+
+    const baseCount = Number(countElement.textContent);
+
+    const all = JSON.parse(
+      localStorage.getItem('sampleLikes') || '{}'
+    );
+
+    const data = all[id];
+
+    if(data){
+      countElement.textContent = data.count;
+      heart.firstChild.textContent =
+        data.liked ? '♥ ' : '♡ ';
+
+      card.classList.toggle('liked', data.liked);
+    }
+  });
+}
+
+initSampleGallery();
+
+// 팝업 바깥 영역 클릭 시 닫기
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLookbookDetail();
+  }
+});
+
+document.getElementById('uploadModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeUploadModal();
+  }
+});
+
+</script>
+
+
+
+
+
+</body></html>
