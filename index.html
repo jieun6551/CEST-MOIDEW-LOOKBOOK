@@ -980,10 +980,12 @@ function addGalleryCard(item) {
     card.appendChild(note);
   }
 
-  // 카드를 클릭하면 상세 팝업 열기
-  card.onclick = () => {
-    openLookbookDetail(item.id, 'user', item);
-  };
+
+// 카드를 클릭하면 상세 팝업 열기
+card.onclick = () => {
+  openLookbookDetail(id, 'sample', card);
+};
+
 
   document.getElementById('galleryGrid').prepend(card);
 }
@@ -1389,34 +1391,20 @@ function saveLookbookEdit(){
 // 게시글 삭제
 // ===================================
 
-async function deleteLookbook() {
-  if (!currentDetail || currentDetail.type !== 'user') return;
+function deleteLookbook(){
+  if(!currentDetail || currentDetail.type !== 'user') return;
 
-  if (!confirm('이 게시글을 삭제할까요?')) return;
+  if(!confirm('이 게시글을 삭제할까요?')) return;
 
-  try {
-    const { error } = await supabaseClient
-      .from('lookbooks')
-      .delete()
-      .eq('id', currentDetail.id);
+  const saved = getSavedLookbooks().filter(
+    look => String(look.id) !== String(currentDetail.id)
+  );
 
-    if (error) throw error;
+  saveLookbooks(saved);
+  closeLookbookDetail();
+  renderSavedLookbooks();
 
-    // 로컬 저장 데이터에서도 제거
-    const saved = getSavedLookbooks().filter(
-      look => String(look.id) !== String(currentDetail.id)
-    );
-
-    saveLookbooks(saved);
-
-    closeLookbookDetail();
-    await renderSavedLookbooks();
-
-    toast('게시글이 삭제되었어요.');
-  } catch (error) {
-    console.error('게시글 삭제 오류:', error);
-    toast('게시글 삭제에 실패했어요. 권한을 확인해 주세요.');
-  }
+  toast('게시글이 삭제되었어요.');
 }
 
 
