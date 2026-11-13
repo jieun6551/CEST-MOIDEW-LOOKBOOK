@@ -1692,123 +1692,85 @@ function submitLook() {
 
 // ===================================
 
-function downloadLookbook() {
 
+async function downloadLookbook() {
   const title = (
-
     document.getElementById('uploadTitle')?.value.trim()
-
     || 'my-lookbook'
-
   ).replace(/[\\/:*?"<>|]/g, '-');
 
   const canvas = document.createElement('canvas');
-
   const ctx = canvas.getContext('2d');
 
   canvas.width = 900;
-
   canvas.height = 1100;
 
   ctx.fillStyle = '#f8f5ee';
-
   ctx.fillRect(0, 0, 900, 1100);
 
   ctx.fillStyle = '#25231f';
-
   ctx.textAlign = 'center';
-
   ctx.font = '48px Georgia';
-
   ctx.fillText(title, 450, 100);
 
   ctx.fillStyle = '#a17e64';
-
   ctx.font = '18px Georgia';
-
   ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
 
   const positions = {
-
     OUTER: { x: 200, y: 220, w: 500, h: 380 },
-
     TOP: { x: 260, y: 250, w: 380, h: 300 },
-
     BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
-
   };
 
-  const categories = ['OUTER', 'TOP', 'BOTTOM'];
+  const order = ['TOP', 'BOTTOM', 'OUTER'];
 
-  const images = categories.filter(cat => selected[cat]);
+  try {
+    const loadedImages = {};
 
-  if (images.length !== 3) {
+    await Promise.all(order.map(cat => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedImages[cat] = img;
+          resolve();
+        };
+        img.onerror = reject;
+        img.src = selected[cat].img;
+      });
+    }));
 
-    toast('아우터, 상의, 하의를 모두 선택해 주세요.');
-
-    return;
-
-  }
-
-  let loaded = 0;
-
-  images.forEach(cat => {
-
-    const img = new Image();
-
-    img.onload = () => {
-
+    order.forEach(cat => {
+      const img = loadedImages[cat];
       const p = positions[cat];
 
-      // 원본 이미지 비율 유지
-
       const ratio = Math.min(
-
         p.w / img.naturalWidth,
-
         p.h / img.naturalHeight
-
       );
 
       const w = img.naturalWidth * ratio;
-
       const h = img.naturalHeight * ratio;
 
       const x = p.x + (p.w - w) / 2;
-
       const y = p.y + (p.h - h) / 2;
 
+      ctx.globalAlpha = cat === 'TOP' ? 0.25 : 1;
       ctx.drawImage(img, x, y, w, h);
+      ctx.globalAlpha = 1;
+    });
 
-      loaded++;
+    const link = document.createElement('a');
+    link.download = title + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
 
-      if (loaded === images.length) {
-
-        const link = document.createElement('a');
-
-        link.download = title + '.png';
-
-        link.href = canvas.toDataURL('image/png');
-
-        link.click();
-
-        toast('다운로드를 시작했어요.');
-
-      }
-
-    };
-
-    img.onerror = () => {
-
-      toast('이미지를 불러오지 못했어요. 다시 시도해 주세요.');
-
-    };
-
-    img.src = selected[cat].img;
-
-  });
-
+    toast('다운로드를 시작했어요.');
+  } catch (error) {
+    toast('이미지를 불러오지 못했어요. 다시 시도해 주세요.');
+  }
 }
+
 
 // ===================================
 
@@ -1964,105 +1926,76 @@ function closeUploadModal() {
 
 // 선택한 옷 이미지로 룩북 PNG 생성
 
+
 function createLookbookImage() {
-
   return new Promise((resolve, reject) => {
-
     const canvas = document.createElement('canvas');
-
     const ctx = canvas.getContext('2d');
 
     canvas.width = 900;
-
     canvas.height = 1100;
 
     ctx.fillStyle = '#f8f5ee';
-
     ctx.fillRect(0, 0, 900, 1100);
 
     const title = document.getElementById('uploadTitle').value.trim();
 
     ctx.fillStyle = '#25231f';
-
     ctx.textAlign = 'center';
-
     ctx.font = '48px Georgia';
-
     ctx.fillText(title, 450, 100, 800);
 
     ctx.fillStyle = '#a17e64';
-
     ctx.font = '18px Georgia';
-
     ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
 
     const positions = {
-
       OUTER: { x: 200, y: 220, w: 500, h: 380 },
-
       TOP: { x: 260, y: 250, w: 380, h: 300 },
-
       BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
-
     };
 
-    const categories = ['OUTER', 'TOP', 'BOTTOM'];
+    const order = ['TOP', 'BOTTOM', 'OUTER'];
 
-    Promise.all(categories.map(cat => {
-
+    Promise.all(order.map(cat => {
       return new Promise((res, rej) => {
-
         const img = new Image();
-
-        img.onload = () => {
-
-          const p = positions[cat];
-
-          const ratio = Math.min(
-
-            p.w / img.naturalWidth,
-
-            p.h / img.naturalHeight
-
-          );
-
-          const w = img.naturalWidth * ratio;
-
-          const h = img.naturalHeight * ratio;
-
-          ctx.drawImage(
-
-            img,
-
-            p.x + (p.w - w) / 2,
-
-            p.y + (p.h - h) / 2,
-
-            w,
-
-            h
-
-          );
-
-          res();
-
-        };
-
-        img.onerror = () => rej(new Error('이미지 로드 실패'));
-
+        img.onload = () => res({ cat, img });
+        img.onerror = rej;
         img.src = selected[cat].img;
+      });
+    }))
+    .then(results => {
+      results.forEach(({ cat, img }) => {
+        const p = positions[cat];
 
+        const ratio = Math.min(
+          p.w / img.naturalWidth,
+          p.h / img.naturalHeight
+        );
+
+        const w = img.naturalWidth * ratio;
+        const h = img.naturalHeight * ratio;
+
+        ctx.globalAlpha = cat === 'TOP' ? 0.25 : 1;
+
+        ctx.drawImage(
+          img,
+          p.x + (p.w - w) / 2,
+          p.y + (p.h - h) / 2,
+          w,
+          h
+        );
+
+        ctx.globalAlpha = 1;
       });
 
-    }))
-
-    .then(() => resolve(canvas.toDataURL('image/png')))
-
+      resolve(canvas.toDataURL('image/png'));
+    })
     .catch(reject);
-
   });
-
 }
+
 
 // 갤러리에 룩북 카드 추가
 
