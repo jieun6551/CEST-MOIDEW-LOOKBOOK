@@ -1152,10 +1152,11 @@ function openLookbookDetail(id, type, card){
   let item;
 
   if(type === 'user'){
-    item = card || getSavedLookbooks().find(
-      look => String(look.id) === String(id)
-    );
-    if(!item) return;
+  item = card || getSavedLookbooks().find(
+    look => String(look.id) === String(id)
+  );
+
+  if(!item) return;
 
   }else{
     item = {
@@ -1174,8 +1175,7 @@ function openLookbookDetail(id, type, card){
   document.getElementById('detailDate').textContent =
     item.date ? new Date(item.date).toLocaleDateString('ko-KR') : '';
 
-  document.getElementById('ownerActions').style.display =
-    type === 'user' ? 'block' : 'none';
+  document.getElementById('ownerActions').style.display = 'none';
 
   document.getElementById('detailView').style.display = 'block';
   document.getElementById('detailEdit').style.display = 'none';
@@ -1459,7 +1459,7 @@ function initSampleGallery(){
 
     // 카드 클릭 시 상세 팝업
     card.onclick = () => {
-      openLookbookDetail(item.id, 'user', item);
+    penLookbookDetail(item.id, 'user', item);
     };
 
     const countElement = card.querySelector('.look-meta i');
