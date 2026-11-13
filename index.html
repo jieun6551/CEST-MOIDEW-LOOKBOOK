@@ -439,7 +439,49 @@ footer{border-top:1px solid var(--line);padding:42px 5%;display:flex;justify-con
 </main>
 <footer><div class="footlogo"><img src="f_LOGO.png" alt="logo" width="30px"></div><div>CONTACT&nbsp;&nbsp; FAQ<br><br>MON–FRI 10:00AM–6:30PM<br>© CEST MOIDEW</div><div>SHOP GUIDE&nbsp;&nbsp; TERMS OF USE&nbsp;&nbsp; PRIVACY POLICY</div><div><a href="https://instagram.com/cestmoidew_official/" target="_blank"     rel="noopener noreferrer">INSTAGRAM ↗</a></div></footer>
 <div class="toast" id="toast"></div>
+
+
+
+<!-- Supabase 라이브러리 불러오기 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+// ========================================
+// 1. Supabase 연결
+// ========================================
+
+const SUPABASE_URL = 'https://bpilyonkzawdnvjfjwzb.supabase.co';
+
+const SUPABASE_KEY = 'sb_publishable_kAa-XE7x8qt_DIIsqVQXXA_qlLPvzqU';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+console.log('Supabase 라이브러리:', window.supabase);
+console.log('Supabase 클라이언트:', supabaseClient);
+
+async function testSupabaseConnection() {
+  const { data, error } = await supabaseClient
+    .from('lookbooks')
+    .select('id')
+    .limit(1);
+
+  if (error) {
+    console.error('Supabase 연결 테스트 실패:', error);
+  } else {
+    console.log('Supabase 연결 성공!', data);
+  }
+}
+
+testSupabaseConnection();
+
+
+// ========================================
+// 2. 상품 카탈로그
+// ========================================
+
 const catalog = {
   OUTER: [
     ['Cest_Rosette collar a-line coat', './look_img/OUTER_1.png'],
@@ -452,9 +494,11 @@ const catalog = {
     ['Cest_Leopard collar wool jacket', './look_img/OUTER_9.png'],
     ['Cest_Heart jacquard knit cardigan', './look_img/OUTER_10.png']
   ],
+
   TOP: [
     ['Cest_Frill neck knit top', './look_img/TOP.png']
   ],
+
   BOTTOM: [
     ['Cest_Lace bow a-line skirt', './look_img/BOTTOM_1.png'],
     ['Cest_Mid-length mesh skirt', './look_img/BOTTOM_2.png'],
@@ -467,6 +511,11 @@ const catalog = {
     ['Cest_Embroidered cake skirt', './look_img/BOTTOM_10.png']
   ]
 };
+
+
+// ========================================
+// 3. 선택된 상품 정보
+// ========================================
 
 let selected = {
   OUTER: null,
@@ -940,7 +989,11 @@ function addGalleryCard(item) {
 }
 
 
-// 업로드 및 저장
+
+// ===================================
+// Supabase 룩북 업로드 및 저장
+// ===================================
+
 async function confirmUploadLookbook() {
   const title = document.getElementById('uploadTitle').value.trim();
   const note = document.getElementById('uploadNote').value.trim();
@@ -956,14 +1009,54 @@ async function confirmUploadLookbook() {
   }
 
   try {
-    const image = await createLookbookImage();
+    toast('룩북을 업로드하고 있어요...');
 
+    // 1. 완성한 룩북을 PNG 이미지로 생성
+    const imageData = await createLookbookImage();
+
+    // 2. PNG 데이터를 업로드 가능한 파일로 변환
+    const imageBlob = await (await fetch(imageData)).blob();
+
+    // 3. Storage에 이미지 업로드
+    const filePath = `${crypto.randomUUID()}.png`;
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from('lookbook-images')
+      .upload(filePath, imageBlob, {
+        contentType: 'image/png'
+      });
+
+    if (uploadError) throw uploadError;
+
+    // 4. 업로드된 이미지의 공개 URL 가져오기
+    const { data: publicData } = supabaseClient
+      .storage
+      .from('lookbook-images')
+      .getPublicUrl(filePath);
+
+    const imageUrl = publicData.publicUrl;
+
+    // 5. 룩북 정보를 데이터베이스에 저장
+    const { data, error: insertError } = await supabaseClient
+      .from('lookbooks')
+      .insert({
+        title: title,
+        description: note,
+        image_url: imageUrl
+      })
+      .select()
+      .single();
+
+    if (insertError) throw insertError;
+
+    // 6. 기존 상세 팝업 기능과 호환되도록 로컬에도 저장
     const lookbook = {
-      id: Date.now().toString(),
-      title: title,
-      note: note,
-      image: image,
-      date: new Date().toISOString(),
+      id: data.id,
+      title: data.title,
+      note: data.description || '',
+      image: data.image_url,
+      date: data.created_at,
       likes: 0,
       liked: false
     };
@@ -974,23 +1067,25 @@ async function confirmUploadLookbook() {
 
     saved.unshift(lookbook);
 
-    // 최근 룩북 3개 저장
     localStorage.setItem(
       'myLookbooks',
       JSON.stringify(saved.slice(0, 3))
     );
 
+    // 7. 갤러리 화면 갱신
     renderSavedLookbooks();
 
     closeUploadModal();
     showPage('gallery');
-    toast('룩북이 갤러리에 등록되었어요!');
+
+    toast('룩북이 성공적으로 등록되었어요!');
 
   } catch (error) {
-    console.error(error);
-    toast('저장에 실패했어요. 다시 시도해 주세요.');
+    console.error('룩북 업로드 오류:', error);
+    toast('업로드에 실패했어요. 다시 시도해 주세요.');
   }
 }
+
 
 function closeUploadModal() {
   document.getElementById('uploadModal').classList.remove('show');
