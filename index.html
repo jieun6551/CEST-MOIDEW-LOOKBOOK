@@ -2311,6 +2311,7 @@ function closeUploadModal() {
 // Supabase에서 전체 룩북 불러오기
 async function loadSavedLookbooks() {
   try {
+    // 게시글 불러오기
     const { data, error } = await supabaseClient
       .from('lookbooks')
       .select('*')
@@ -2318,16 +2319,32 @@ async function loadSavedLookbooks() {
 
     if (error) throw error;
 
-    // 서버에서 가져온 게시글 저장
-    sharedLookbooks = data.map(item => ({
-      id: String(item.id),
-      title: item.title,
-      note: item.note || '',
-      image: item.image_url,
-      date: item.created_at,
-      likes: 0,
-      liked: false
-    }));
+    // 좋아요 기록 불러오기
+    const { data: likesData, error: likesError } = await supabaseClient
+      .from('likes')
+      .select('lookbook_id, visitor_id');
+
+    if (likesError) throw likesError;
+
+    const visitorId = getVisitorId();
+
+    sharedLookbooks = data.map(item => {
+      const itemLikes = likesData.filter(
+        like => String(like.lookbook_id) === String(item.id)
+      );
+
+      return {
+        id: String(item.id),
+        title: item.title,
+        note: item.note || '',
+        image: item.image_url,
+        date: item.created_at,
+        likes: itemLikes.length,
+        liked: itemLikes.some(
+          like => like.visitor_id === visitorId
+        )
+      };
+    });
 
     renderSavedLookbooks();
 
@@ -2544,78 +2561,110 @@ function updateDetailLike(){
 
 // ===================================
 
-function toggleCurrentLike(){
+function getVisitorId() {
+  let visitorId = localStorage.getItem('visitorId');
 
-  if(!currentDetail) return;
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem('visitorId', visitorId);
+  }
 
-  if(currentDetail.type === 'user'){
+  return visitorId;
+}
 
-    const saved = getSavedLookbooks();
+let isTogglingLike = false;
 
-    const item = saved.find(
+async function toggleCurrentLike() {
+  if (!currentDetail || isTogglingLike) return;
 
+  if (currentDetail.type === 'user') {
+    const item = sharedLookbooks.find(
       look => String(look.id) === String(currentDetail.id)
-
     );
 
-    if(!item) return;
+    if (!item) return;
 
-    item.liked = !item.liked;
+    const visitorId = getVisitorId();
+    const wasLiked = item.liked;
 
-    item.likes = Math.max(
+    isTogglingLike = true;
 
-      0,
+    try {
+      if (wasLiked) {
+        // 좋아요 취소
+        const { error } = await supabaseClient
+          .from('likes')
+          .delete()
+          .eq('lookbook_id', Number(item.id))
+          .eq('visitor_id', visitorId);
 
-      (item.likes || 0) + (item.liked ? 1 : -1)
+        if (error) throw error;
 
+      } else {
+        // 좋아요 등록
+        const { error } = await supabaseClient
+          .from('likes')
+          .insert([{
+            lookbook_id: Number(item.id),
+            visitor_id: visitorId
+          }]);
+
+        if (error) throw error;
+      }
+
+      // 서버에서 최신 좋아요 정보 다시 불러오기
+      await loadSavedLookbooks();
+
+      const updatedItem = sharedLookbooks.find(
+        look => String(look.id) === String(currentDetail.id)
+      );
+
+      if (updatedItem) {
+        Object.assign(currentDetail, updatedItem);
+      }
+
+      updateDetailLike();
+
+    } catch (error) {
+      console.error('좋아요 처리 오류:', error);
+      toast('좋아요 처리에 실패했어요.');
+
+    } finally {
+      isTogglingLike = false;
+    }
+
+  } else {
+    // 샘플 게시글은 기존 방식 유지
+    const all = JSON.parse(
+      localStorage.getItem('sampleLikes') || '{}'
     );
-
-    saveLookbooks(saved);
-
-    renderSavedLookbooks();
-
-  }else{
-
-    const all = JSON.parse(localStorage.getItem('sampleLikes') || '{}');
 
     const card = document.querySelector(
-
       `[data-sample-id="${currentDetail.id}"]`
-
     );
 
     const baseCount = Number(
-
       card?.querySelector('.look-meta i')?.textContent || 0
-
     );
 
     const data = all[currentDetail.id] || {
-
-      liked:false,
-
-      count:baseCount
-
+      liked: false,
+      count: baseCount
     };
 
     data.liked = !data.liked;
 
     data.count = Math.max(
-
       0,
-
       data.count + (data.liked ? 1 : -1)
-
     );
 
     all[currentDetail.id] = data;
 
     localStorage.setItem('sampleLikes', JSON.stringify(all));
 
+    updateDetailLike();
   }
-
-  updateDetailLike();
-
 }
 
 // ===================================
