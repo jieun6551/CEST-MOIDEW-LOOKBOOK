@@ -2246,6 +2246,8 @@ async function confirmUploadLookbook() {
     if (insertError) throw insertError;
 
     console.log('저장된 룩북:', data);
+    // 등록된 룩북을 즉시 갤러리에 반영
+    await loadSavedLookbooks();
 
     closeUploadModal();
     showPage('gallery');
