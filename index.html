@@ -2656,27 +2656,55 @@ function saveLookbookEdit(){
 
 // ===================================
 
-function deleteLookbook(){
 
-  if(!currentDetail || currentDetail.type !== 'user') return;
+async function deleteLookbook() {
+  if (!currentDetail || currentDetail.type !== 'user') return;
 
-  if(!confirm('이 게시글을 삭제할까요?')) return;
+  if (!confirm('이 게시글을 삭제할까요?')) return;
 
-  const saved = getSavedLookbooks().filter(
+  try {
+    // 삭제할 게시글 정보 찾기
+    const item = sharedLookbooks.find(
+      look => String(look.id) === String(currentDetail.id)
+    );
 
-    look => String(look.id) !== String(currentDetail.id)
+    // 1. Supabase 데이터베이스에서 게시글 삭제
+    const { error } = await supabaseClient
+      .from('lookbooks')
+      .delete()
+      .eq('id', currentDetail.id);
 
-  );
+    if (error) throw error;
 
-  saveLookbooks(saved);
+    // 2. Storage에서 이미지도 삭제
+    if (item && item.image) {
+      const marker = '/object/public/lookbook-images/';
+      const imagePath = item.image.split(marker)[1];
 
-  closeLookbookDetail();
+      if (imagePath) {
+        const { error: storageError } = await supabaseClient
+          .storage
+          .from('lookbook-images')
+          .remove([decodeURIComponent(imagePath)]);
 
-  renderSavedLookbooks();
+        if (storageError) {
+          console.warn('이미지 삭제 오류:', storageError);
+        }
+      }
+    }
 
-  toast('게시글이 삭제되었어요.');
+    // 3. 최신 게시글 목록 다시 불러오기
+    closeLookbookDetail();
+    await loadSavedLookbooks();
 
+    toast('게시글이 삭제되었어요!');
+
+  } catch (error) {
+    console.error('게시글 삭제 오류:', error);
+    toast('게시글 삭제에 실패했어요.');
+  }
 }
+
 
 // ===================================
 
