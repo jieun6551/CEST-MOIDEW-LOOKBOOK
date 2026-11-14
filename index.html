@@ -1081,6 +1081,8 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -1497,6 +1499,15 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 <div class="toast" id="toast"></div>
 
 <script>
+
+  // Supabase 연결
+  const SUPABASE_URL = 'https://ikaolfwjjeiynffknynj.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_9KEQS05JDH_ECwrqbtkz3A_NnCFuQCK';
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 const catalog = {
 
@@ -2174,6 +2185,7 @@ function addGalleryCard(item) {
 
 // 업로드 및 저장
 
+// Supabase에 룩북 이미지와 게시글 저장
 async function confirmUploadLookbook() {
   const title = document.getElementById('uploadTitle').value.trim();
   const note = document.getElementById('uploadNote').value.trim();
@@ -2189,39 +2201,60 @@ async function confirmUploadLookbook() {
   }
 
   try {
+    // 1. 기존 방식으로 PNG 이미지 생성
     const image = await createLookbookImage();
 
-    const lookbook = {
-      id: Date.now().toString(),
-      title: title,
-      note: note,
-      image: image,
-      date: new Date().toISOString(),
-      likes: 0,
-      liked: false
-    };
+    // 2. PNG 데이터를 파일로 변환
+    const response = await fetch(image);
+    const blob = await response.blob();
 
-    const saved = JSON.parse(
-      localStorage.getItem('myLookbooks') || '[]'
-    );
+    // 3. 이미지 파일 이름 생성
+    const fileName = `lookbooks/${crypto.randomUUID()}.png`;
 
-    saved.unshift(lookbook);
+    // 4. Supabase Storage에 이미지 업로드
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from('lookbook-images')
+      .upload(fileName, blob, {
+        contentType: 'image/png',
+        upsert: false
+      });
 
-    // 최근 룩북 3개 저장
-    localStorage.setItem(
-      'myLookbooks',
-      JSON.stringify(saved.slice(0, 3))
-    );
+    if (uploadError) throw uploadError;
 
-    renderSavedLookbooks();
+    // 5. 업로드된 이미지의 공개 주소 가져오기
+    const { data: urlData } = supabaseClient
+      .storage
+      .from('lookbook-images')
+      .getPublicUrl(fileName);
+
+    const imageUrl = urlData.publicUrl;
+
+    // 6. 게시글 정보를 데이터베이스에 저장
+    const { data, error: insertError } = await supabaseClient
+      .from('lookbooks')
+      .insert([
+        {
+          title: title,
+          note: note,
+          image_url: imageUrl
+        }
+      ])
+      .select()
+      .single();
+
+    if (insertError) throw insertError;
+
+    console.log('저장된 룩북:', data);
 
     closeUploadModal();
     showPage('gallery');
-    toast('룩북이 갤러리에 등록되었어요!');
+
+    toast('룩북이 서버에 등록되었어요!');
 
   } catch (error) {
-    console.error(error);
-    toast('저장에 실패했어요. 다시 시도해 주세요.');
+    console.error('룩북 업로드 오류:', error);
+    toast('업로드에 실패했어요. 오류를 확인해 주세요.');
   }
 }
 
@@ -2231,29 +2264,39 @@ function closeUploadModal() {
 
 }
 
-// ===================================
+// Supabase에서 전체 룩북 불러오기
+async function loadSavedLookbooks() {
+  try {
+    const { data, error } = await supabaseClient
+      .from('lookbooks')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-// 새로고침 후 저장된 룩북 불러오기
+    if (error) throw error;
 
-// ===================================
+    // 서버에서 가져온 게시글 저장
+    sharedLookbooks = data.map(item => ({
+      id: String(item.id),
+      title: item.title,
+      note: item.note || '',
+      image: item.image_url,
+      date: item.created_at,
+      likes: 0,
+      liked: false
+    }));
 
-function loadSavedLookbooks() {
+    renderSavedLookbooks();
 
-  const saved = JSON.parse(
+    console.log('불러온 룩북:', sharedLookbooks);
 
-    localStorage.getItem('myLookbooks') || '[]'
-
-  );
-
-  // 저장된 룩북을 갤러리에 다시 표시
-
-  saved.reverse().forEach(item => {
-
-    addGalleryCard(item);
-
-  });
-
+  } catch (error) {
+    console.error('룩북 불러오기 오류:', error);
+    toast('룩북을 불러오지 못했어요.');
+  }
 }
+
+// Supabase에서 불러온 공용 룩북 데이터
+let sharedLookbooks = [];
 
 // 저장된 룩북 복원
 
@@ -2305,10 +2348,8 @@ restoreSampleLikes();
 
 let currentDetail = null;
 
-function getSavedLookbooks(){
-
-  return JSON.parse(localStorage.getItem('myLookbooks') || '[]');
-
+function getSavedLookbooks() {
+  return sharedLookbooks;
 }
 
 function saveLookbooks(data){
