@@ -540,16 +540,17 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 
 .event-page {
   width: 100%;
-  max-width: 1440px;
+  max-width: none;
   margin: 0 auto;
-  padding: 75px 3% 0px;
+  padding: 92px 3% 0;
+  box-sizing: border-box;
 }
 
 /* HEADER */
 
 .event-header {
   text-align: center;
-  padding: 30px 0 65px;
+  padding: 0px 0 65px;
 }
 
 .event-header .eyebrow {
@@ -584,7 +585,7 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(25,23,20,.62), rgba(25,23,20,.08)),
+    linear-gradient(90deg, rgba(45,25,30,.65), rgba(45,25,30,.08)),
     url('https://images.unsplash.com/photo-1766238955752-0200601334ed?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D')
     center 45% / cover no-repeat;
 }
@@ -626,105 +627,12 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   color: var(--ink);
 }
 
-/* EXPLORE MORE */
-
-.event-section-title {
-  text-align: center;
-  margin-bottom: 42px;
-}
-
-.event-section-title > span {
-  font: 10px Georgia, serif;
-  letter-spacing: .2em;
-  color: var(--accent);
-}
-
-.event-section-title h3 {
-  font: 38px 'DM Serif Display', serif;
-  font-weight: 400;
-  margin: 14px 0 0;
-}
-
-/* EVENT CARDS */
-
-.event-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  margin-top: 35px;
-}
-
-.event-card {
-  min-height: 350px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 45px;
-  background: #eee8dd;
-  overflow: hidden;
-  transition: transform .3s;
-}
-
-.event-card:nth-child(2) {
-  background: #e9e4dc;
-}
-
-.event-card:hover {
-  transform: translateY(-5px);
-}
-
-.event-card-number {
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  font: 44px 'DM Serif Display', serif;
-  color: rgba(161,126,100,.4);
-}
-
-.event-card-content {
-  position: relative;
-  z-index: 1;
-}
-
-.event-card-content > span {
-  font: 10px Georgia, serif;
-  letter-spacing: .16em;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.event-card-content h3 {
-  font: 35px/1.15 'DM Serif Display', serif;
-  font-weight: 400;
-  margin: 22px 0 16px;
-}
-
-.event-card-content p {
-  font: 12px/1.9 'Noto Serif KR', serif;
-  color: var(--muted);
-  margin: 0 0 25px;
-  font-weight: 600;
-}
-
-.event-card-content button {
-  padding: 12px 19px;
-  border: 1px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
-  font: 10px Georgia, serif;
-  letter-spacing: .1em;
-  transition: .25s;
-}
-
-.event-card-content button:hover {
-  background: var(--ink);
-  color: var(--white);
-}
-
 /* HOW TO JOIN */
 
 .event-info {
-  padding: 55px 0;
+  padding: 70px 5%;
+  margin-top: 55px;
+  background: #f3e6e3;
 }
 
 .event-info-heading {
@@ -735,7 +643,7 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 .event-info-heading > span {
   font: 10px Georgia, serif;
   letter-spacing: .2em;
-  color: var(--accent);
+  color: #a66f70;
   font-weight: 600;
 }
 
@@ -757,20 +665,25 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 }
 
 .event-info-item {
-  padding: 28px 22px;
-  border-top: 1px solid var(--ink);
-  background: #f1ede5;
+  padding: 32px 25px;
+  border-top: 2px solid #bd8c87;
+  background: #fffaf5;
+  transition: transform .25s;
+}
+
+.event-info-item:hover {
+  transform: translateY(-5px);
 }
 
 .event-info-item > span {
   font: 11px Georgia, serif;
   letter-spacing: .12em;
-  color: var(--accent);
+  color: #a66f70;
 }
 
 .event-info-item h4 {
   font: 18px 'DM Serif Display', serif;
-  font-weight: 300;
+  font-weight: 400;
   margin: 18px 0 12px;
 }
 
@@ -784,15 +697,16 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 /* EVENT BENEFITS */
 
 .event-benefits {
-  padding: 75px 7%;
-  background: #eee8dd;
+  padding: 85px 7%;
+  background: #b9827c;
   text-align: center;
+  color: #fffaf5;
 }
 
 .event-benefits-title > span {
   font: 10px Georgia, serif;
   letter-spacing: .2em;
-  color: var(--accent);
+  color: #fff1e9;
   font-weight: 600;
 }
 
@@ -800,11 +714,12 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   font: 36px 'DM Serif Display', serif;
   font-weight: 400;
   margin: 16px 0;
+  color: #fffaf5;
 }
 
 .event-benefits-title p {
   font: 12px/1.9 'Noto Serif KR', serif;
-  color: var(--muted);
+  color: #fff1e9;
   font-weight: 500;
 }
 
@@ -818,15 +733,15 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 
 .event-benefits-grid > div {
   padding: 25px 15px;
-  border-top: 1px solid #c9bcae;
-  border-bottom: 1px solid #c9bcae;
+  border-top: 1px solid rgba(255,250,245,.55);
+  border-bottom: 1px solid rgba(255,250,245,.55);
 }
 
 .event-benefits-grid span {
   display: block;
   font: 10px Georgia, serif;
   letter-spacing: .15em;
-  color: var(--accent);
+  color: #fff1e9;
   font-weight: 600;
 }
 
@@ -835,34 +750,173 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   font: 42px 'DM Serif Display', serif;
   font-weight: 400;
   margin: 15px 0 10px;
+  color: #fffaf5;
 }
 
 .event-benefits-grid p {
   font: 12px 'Noto Serif KR', serif;
-  color: var(--muted);
+  color: #fff1e9;
   margin: 0;
   font-weight: 500;
+}
+
+/* EXPLORE MORE */
+
+.event-section-title {
+  text-align: center;
+  margin: 85px 0 42px;
+}
+
+.event-section-title > span {
+  font: 10px Georgia, serif;
+  letter-spacing: .2em;
+  color: var(--accent);
+}
+
+.event-section-title h3 {
+  font: 38px 'DM Serif Display', serif;
+  font-weight: 400;
+  margin: 14px 0 0;
+}
+
+/* EVENT CARDS */
+/* 하단 이미지 카드 */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 3%;
+}
+
+.event-card {
+  position: relative;
+  min-height: 380px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  transition: transform 0.45s ease;
+}
+
+/* 카드별 배경 이미지 */
+.event-card:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1625899845678-3fad6a4a1846?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+}
+
+.event-card:nth-child(2) {
+  background-image: url('https://plus.unsplash.com/premium_photo-1664202525979-80d1da46b34b?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+}
+
+/* 어두운 오버레이 */
+.event-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  z-index: 0;
+}
+
+/* 카드 내부 텍스트 */
+.event-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.event-card h2,
+.event-card h3,
+.event-card p,
+.event-card span {
+  color: #fff;
+}
+
+.event-card button,
+.event-card a {
+  color: #fff;
+  border-color: rgba(255,255,255,0.8);
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-card-number {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font: 44px 'DM Serif Display', serif;
+}
+
+.event-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.event-card-content > span {
+  font: 10px Georgia, serif;
+  letter-spacing: .16em;
+  color: #fff;
+  font-weight: 600;
+}
+
+.event-card-content h3 {
+  font: 35px/1.15 'DM Serif Display', serif;
+  font-weight: 400;
+  margin: 22px 0 16px;
+}
+
+.event-card-content p {
+  font: 12px/1.9 'Noto Serif KR', serif;
+  color: #fff;
+  margin: 0 0 25px;
+  font-weight: 500;
+}
+
+.event-card-content button {
+  padding: 12px 19px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font: 10px Georgia, serif;
+  letter-spacing: .1em;
+  transition: .25s;
+}
+
+.event-card-content button:hover {
+  border: #b9827c;
+  background: #b9827c;
+  color: var(--white);
 }
 
 /* EVENT NOTICE */
 
 .event-notice {
+  width: 100vw;
+  box-sizing: border-box;
   margin-top: 35px;
-  padding: 25px 30px;
-  background: #f1ede5;
+  margin-left: calc(50% - 50vw);
+  padding: 30px max(30px, calc((100vw - 1440px) / 2 + 30px));
+  background: #eee9df;
+  border-left: 3px solid #b9827c;
 }
 
 .event-notice h4 {
-  font: 11px Georgia, serif;
+  font: 14px Georgia, serif;
   letter-spacing: .16em;
   margin: 0 0 18px;
   font-weight: 600;
+  margin-left: 3%;
 }
 
 .event-notice p {
-  font: 11px/2 'Noto Sans KR', sans-serif;
+  font: 12px/2 'Noto Sans KR', sans-serif;
   color: var(--muted);
   margin: 3px 0;
+  font-weight: 500;
+  margin-left: 3%;
 }
 
 /* EVENT FOOTER */
@@ -871,7 +925,7 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   text-align: center;
   border-top: 1px solid var(--line);
   margin-top: 90px;
-  padding-top: 35px;
+  padding: 35px 0 0;
 }
 
 .event-footer span {
@@ -891,11 +945,11 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 @media (max-width: 760px) {
 
   .event-page {
-    padding: 45px 2% 0px;
+    padding: 45px 2% 0;
   }
 
   .event-header {
-    padding: 25px 0 45px;
+    padding: 15px 0 45px;
   }
 
   .event-header h2 {
@@ -919,29 +973,9 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
     font-size: 48px;
   }
 
-  .event-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 15px;
-  }
-
-  .event-card {
-    min-height: 310px;
-    padding: 32px;
-  }
-
-  .event-card-content h3 {
-    font-size: 31px;
-  }
-
-  .event-section-title h3,
-  .event-info-heading h3 {
-    font-size: 31px;
-  }
-
   .event-info {
-    padding: 60px 0;
-    margin-top: 65px;
+    padding: 55px 6%;
+    margin-top: 35px;
   }
 
   .event-info-grid {
@@ -967,14 +1001,81 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
     margin-top: 30px;
   }
 
+  .event-section-title {
+    margin: 60px 0 30px;
+  }
+
+  .event-section-title h3,
+  .event-info-heading h3 {
+    font-size: 31px;
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr;
+    margin-top: 1%;
+  }
+
+  .event-card {
+    min-height: 320px;
+    padding: 32px;
+  }
+
+  .event-card-content h3 {
+    font-size: 31px;
+  }
+
   .event-notice {
-    margin-top: 45px;
+    margin-top: 35px;
     padding: 23px 20px;
   }
 
   .event-footer {
     margin-top: 60px;
   }
+}
+
+.gallery-search {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.gallery-search input {
+  width: 280px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+}
+
+.gallery-search input:focus {
+  border-color: var(--accent);
+}
+
+.gallery-search button {
+  padding: 12px 20px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font: 11px Georgia;
+  letter-spacing: .08em;
+  transition: .25s;
+}
+
+.gallery-search button:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.gallery-search-empty {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 60px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 
@@ -998,7 +1099,11 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   <a onclick="showPage('event')">EVENT</a>
   </nav>
 
-  <div class="icons"><span><img src="icon_search.png" alt="search" width="15px"></span><span><img src="icon_profile.png" alt="profile" width="15px"></span><span><img src="icon_heart.png" alt="heart" width="15px"></span></div>
+  <div class="icons">
+    <span onclick="openGallerySearch()" style="cursor:pointer">
+      <img src="icon_search.png" alt="search" width="15px">
+    </span>
+    <span><img src="icon_profile.png" alt="profile" width="15px"></span><span><img src="icon_heart.png" alt="heart" width="15px"></span></div>
 
 </header>
 
@@ -1065,9 +1170,20 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
     게시글 제목을 수정해도 이미지 속 제목은 변경되지 않습니다.
   </p>
 </div>
+  <div class="gallery-search">
+    <input
+      type="search"
+      id="gallerySearchInput"
+      placeholder="룩북 제목을 검색해 보세요."
+      onkeydown="if(event.key === 'Enter') filterGalleryByTitle()"
+    >
+    <button onclick="filterGalleryByTitle()">SEARCH</button>
+  </div>
   <div class="toolbar"><span>CURATED LOOKS — 2026</span><span>♥ LIKE YOUR FAVORITE</span></div>
+  
 
   <div class="gallery-grid" id="galleryGrid"></div>
+  <p class="gallery-search-empty" id="gallerySearchEmpty">검색 결과가 없습니다.</p>
 
   <div style="text-align:center;margin-top:55px"><button class="cta" onclick="showPage('create')">MAKE YOUR OWN LOOK  ↗</button></div>
 
@@ -1478,6 +1594,24 @@ function showPage(id, addHistory = true) {
   });
 
   if (id === 'create') {
+    // 이전에 선택한 의류 초기화
+    selected = {
+      OUTER: null,
+      TOP: null,
+      BOTTOM: null
+    };
+
+    // 미리보기 초기화
+    updatePreview();
+
+    // OUTER 탭만 선택된 상태로 변경
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+
+    document.querySelector('.tabs button').classList.add('selected');
+
+    // 아우터 상품 목록 표시
     renderProducts('OUTER');
   }
 }
@@ -1720,7 +1854,7 @@ async function downloadLookbook() {
   const positions = {
     OUTER: { x: 200, y: 220, w: 500, h: 380 },
     TOP: { x: 260, y: 250, w: 380, h: 300 },
-    BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
+    BOTTOM: { x: 290, y: 400, w: 320, h: 330 }
   };
 
   const order = ['TOP', 'BOTTOM', 'OUTER'];
@@ -1952,7 +2086,7 @@ function createLookbookImage() {
     const positions = {
       OUTER: { x: 200, y: 220, w: 500, h: 380 },
       TOP: { x: 260, y: 250, w: 380, h: 300 },
-      BOTTOM: { x: 260, y: 510, w: 380, h: 390 }
+      BOTTOM: { x: 290, y: 400, w: 320, h: 330 }
     };
 
     const order = ['TOP', 'BOTTOM', 'OUTER'];
@@ -2567,6 +2701,45 @@ document.getElementById('uploadModal').addEventListener('click', function(e) {
     closeUploadModal();
   }
 });
+
+// 헤더 검색 아이콘 클릭
+function openGallerySearch() {
+  showPage('gallery');
+
+  requestAnimationFrame(() => {
+    document.getElementById('gallerySearchInput').focus();
+  });
+}
+
+// 갤러리 룩북 제목 검색
+function filterGalleryByTitle() {
+  const keyword = document
+    .getElementById('gallerySearchInput')
+    .value.trim()
+    .toLowerCase();
+
+  const cards = document.querySelectorAll(
+    '#galleryGrid .look-card'
+  );
+
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    const title = card.querySelector('.look-meta strong')
+      ?.textContent.trim().toLowerCase() || '';
+
+    const matched = title.includes(keyword);
+
+    card.style.display = matched ? '' : 'none';
+
+    if (matched) visibleCount++;
+  });
+
+  const emptyMessage = document.getElementById('gallerySearchEmpty');
+
+  emptyMessage.style.display =
+    visibleCount === 0 ? 'block' : 'none';
+}
 
 </script>
 
