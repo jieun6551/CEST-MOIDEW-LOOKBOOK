@@ -2186,7 +2186,13 @@ function addGalleryCard(item) {
 // 업로드 및 저장
 
 // Supabase에 룩북 이미지와 게시글 저장
+
+// Supabase에 룩북 이미지와 게시글 저장
+let isUploadingLookbook = false;
+
 async function confirmUploadLookbook() {
+  if (isUploadingLookbook) return;
+
   const title = document.getElementById('uploadTitle').value.trim();
   const note = document.getElementById('uploadNote').value.trim();
 
@@ -2200,8 +2206,22 @@ async function confirmUploadLookbook() {
     return;
   }
 
+  const submitButton = document.querySelector('#uploadModal .submit');
+  const originalText = submitButton ? submitButton.textContent : '';
+
+  isUploadingLookbook = true;
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = 'UPLOADING...';
+    submitButton.style.opacity = '0.6';
+  }
+
   try {
-    // 1. 기존 방식으로 PNG 이미지 생성
+    // 로딩 화면 먼저 표시
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    // 1. PNG 이미지 생성
     const image = await createLookbookImage();
 
     // 2. PNG 데이터를 파일로 변환
@@ -2222,7 +2242,7 @@ async function confirmUploadLookbook() {
 
     if (uploadError) throw uploadError;
 
-    // 5. 업로드된 이미지의 공개 주소 가져오기
+    // 5. 이미지 공개 주소 가져오기
     const { data: urlData } = supabaseClient
       .storage
       .from('lookbook-images')
@@ -2233,21 +2253,33 @@ async function confirmUploadLookbook() {
     // 6. 게시글 정보를 데이터베이스에 저장
     const { data, error: insertError } = await supabaseClient
       .from('lookbooks')
-      .insert([
-        {
-          title: title,
-          note: note,
-          image_url: imageUrl
-        }
-      ])
+      .insert([{
+        title: title,
+        note: note,
+        image_url: imageUrl
+      }])
       .select()
       .single();
 
     if (insertError) throw insertError;
 
     console.log('저장된 룩북:', data);
-    // 등록된 룩북을 즉시 갤러리에 반영
-    await loadSavedLookbooks();
+
+    // 7. 새 게시글을 공용 목록에 즉시 추가
+    const newItem = {
+      id: String(data.id),
+      title: data.title,
+      note: data.note || '',
+      image: data.image_url,
+      date: data.created_at,
+      likes: 0,
+      liked: false
+    };
+
+    sharedLookbooks.unshift(newItem);
+
+    // 8. 갤러리 즉시 갱신
+    renderSavedLookbooks();
 
     closeUploadModal();
     showPage('gallery');
@@ -2257,8 +2289,18 @@ async function confirmUploadLookbook() {
   } catch (error) {
     console.error('룩북 업로드 오류:', error);
     toast('업로드에 실패했어요. 오류를 확인해 주세요.');
+
+  } finally {
+    isUploadingLookbook = false;
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalText;
+      submitButton.style.opacity = '1';
+    }
   }
 }
+
 
 function closeUploadModal() {
 
