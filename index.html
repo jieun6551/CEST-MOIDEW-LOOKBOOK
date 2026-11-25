@@ -77,25 +77,25 @@ h1{font:clamp(48px,6.6vw,94px)/.98 'DM Serif Display',serif;font-weight:400;lett
 .garment.bottom{z-index:4}
 
 /* 이미지별 개별 위치 */
-.garment[src*="OUTER_1.png"]{left:22.5%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_2.png"]{left:22.5%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_3.png"]{left:21%;top:-13%;width:57%;height:67%}
-.garment[src*="OUTER_4.png"]{left:22%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_5.png"]{left:22.5%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_6.png"]{left:22.5%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_8.png"]{left:22.5%;top:-10%;width:55%;height:65%}
-.garment[src*="OUTER_9.png"]{left:22%;top:-13%;width:55%;height:65%}
-.garment[src*="OUTER_10.png"]{left:22%;top:-13%;width:55%;height:65%}
+.garment[src*="OUTER_1.png"]{left:21.2%;top:-13%;width:58%;height:65%}
+.garment[src*="OUTER_2.png"]{left:21%;top:-10%;width:58%;height:65%}
+.garment[src*="OUTER_3.png"]{left:20.3%;top:-13%;width:60%;height:67%}
+.garment[src*="OUTER_4.png"]{left:21.6%;top:-13%;width:58%;height:65%}
+.garment[src*="OUTER_5.png"]{left:21.5%;top:-13%;width:58%;height:65%}
+.garment[src*="OUTER_6.png"]{left:21.8%;top:-13%;width:58%;height:65%}
+.garment[src*="OUTER_8.png"]{left:22.2%;top:-10%;width:57%;height:65%}
+.garment[src*="OUTER_9.png"]{left:21.3%;top:-12%;width:58%;height:65%}
+.garment[src*="OUTER_10.png"]{left:21.3%;top:-13%;width:58%;height:65%}
 .garment[src*="TOP.png"]{left:25%;top:-5%;width:50%;height:50%;opacity:0.25}
-.garment[src*="BOTTOM_1.png"]{left:29%;top:15%;width:42%;height:52%}
-.garment[src*="BOTTOM_2.png"]{left:22%;top:15%;width:55%;height:65%}
-.garment[src*="BOTTOM_3.png"]{left:15%;top:15%;width:70%;height:90%}
-.garment[src*="BOTTOM_4.png"]{left:22.5%;top:13%;width:55%;height:65%}
-.garment[src*="BOTTOM_5.png"]{left:29%;top:15%;width:42%;height:52%}
-.garment[src*="BOTTOM_6.png"]{left:15%;top:7%;width:70%;height:90%}
-.garment[src*="BOTTOM_8.png"]{left:29%;top:15%;width:42%;height:52%}
-.garment[src*="BOTTOM_9.png"]{left:29%;top:15%;width:42%;height:52%}
-.garment[src*="BOTTOM_10.png"]{left:29%;top:15%;width:42%;height:52%}
+.garment[src*="BOTTOM_1.png"]{left:25.3%;top:15%;width:50%;height:52%}
+.garment[src*="BOTTOM_2.png"]{left:20%;top:15%;width:60%;height:65%}
+.garment[src*="BOTTOM_3.png"]{left:10.1%;top:15%;width:80%;height:90%}
+.garment[src*="BOTTOM_4.png"]{left:22.5%;top:12%;width:55%;height:65%}
+.garment[src*="BOTTOM_5.png"]{left:25.4%;top:15%;width:49%;height:52%}
+.garment[src*="BOTTOM_6.png"]{left:10.7%;top:5%;width:80%;height:90%}
+.garment[src*="BOTTOM_8.png"]{left:28%;top:15%;width:45%;height:52%}
+.garment[src*="BOTTOM_9.png"]{left:26.3%;top:15%;width:48%;height:52%}
+.garment[src*="BOTTOM_10.png"]{left:25.4%;top:15%;width:50%;height:52%}
 
 
 .preview-legend{font-weight: 500; display:flex;gap:16px;font-size:10px;color:var(--muted);margin-top:8px} .preview-legend span:before{content:'';display:inline-block;width:7px;height:7px;border:1px dashed var(--accent);border-radius:50%;margin-right:5px}
@@ -444,6 +444,126 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 
   margin-top:25px;
 
+}
+
+/* LOOKBOOK PRODUCT INFORMATION */
+
+.detail-products-section {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  width: 100%;
+}
+
+.detail-products-heading {
+  margin-bottom: 18px;
+}
+
+.detail-products-heading span {
+  font: 11px Georgia, serif;
+  letter-spacing: .15em;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.detail-products-heading p {
+  min-height: auto;
+  margin: 7px 0 0;
+  font: 12px 'Noto Serif KR', serif;
+  color: var(--muted);
+}
+
+.detail-product-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.detail-product-item:hover {
+  background: #eee8dd;
+}
+
+.detail-product-item img {
+  width: 78px;
+  height: 100px;
+  object-fit: cover;
+  background: #eee8dd;
+  flex-shrink: 0;
+}
+
+.detail-product-placeholder {
+  width: 78px;
+  height: 100px;
+  background: #eee8dd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 9px Georgia, serif;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.detail-product-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.detail-product-category {
+  display: block;
+  font: 10px Georgia, serif;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: 7px;
+}
+
+.detail-product-name {
+  font: 13px/1.6 'Noto Serif KR', serif;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.detail-product-brand {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.detail-product-price {
+  font-size: 12px;
+  margin-top: 8px;
+  color: var(--ink);
+}
+
+.detail-product-original {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-right: 6px;
+}
+
+.detail-product-link {
+  display: inline-block;
+  margin-top: 9px;
+  font: 10px Georgia, serif;
+  letter-spacing: .08em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 3px;
+}
+
+.detail-product-link:hover {
+  color: var(--accent);
+}
+
+.detail-products-empty {
+  font: 12px/1.8 'Noto Serif KR', serif;
+  color: var(--muted);
+  min-height: auto !important;
 }
 
 .detail-like{
@@ -940,6 +1060,47 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   margin: 12px 0 0;
 }
 
+/* 룩북 이미지 확대 기능 */
+#imageZoomModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(20, 18, 16, 0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  cursor: zoom-out;
+}
+
+#imageZoomModal.show {
+  display: flex;
+}
+
+#imageZoomModal img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  cursor: default;
+}
+
+#imageZoomClose {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 38px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+#detailImage {
+  cursor: zoom-in;
+}
+
 /* MOBILE */
 
 @media (max-width: 760px) {
@@ -1079,6 +1240,102 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 }
 
 
+/* =====================================
+   MOBILE — LOOKBOOK CREATOR
+===================================== */
+
+@media (max-width: 760px) {
+
+  /* 룩북 영역을 세로형으로 변경 */
+  .section-create {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 28px;
+  }
+
+  /* 미리보기 영역 */
+  .creator-preview {
+    position: static;
+    width: 100%;
+    padding: 14px;
+  }
+
+  .preview-frame {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 20px 10px;
+    overflow: visible;
+  }
+
+  .preview-title {
+    font-size: 26px;
+  }
+
+  .mannequin-stage {
+    width: 100%;
+    max-width: 390px;
+    height: 380px;
+    margin: 10px auto 0;
+  }
+
+  .preview-legend {
+    gap: 12px;
+    font-size: 9px;
+  }
+
+  /* 상품 선택 영역 */
+  .creator-panel {
+    position: static;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .creator-panel h2 {
+    font-size: 30px;
+  }
+
+  .tabs {
+    gap: 24px;
+    margin: 20px 0 16px;
+  }
+
+  .tabs button {
+    padding: 12px 0;
+    font-size: 12px;
+  }
+
+  /* 상품은 두 열로 배치 */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    overflow: visible;
+    flex: none;
+  }
+
+  .product {
+    padding: 7px;
+  }
+
+  .product span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .product small {
+    font-size: 10px;
+  }
+
+  /* 완성 버튼 */
+  #create > .submit {
+    width: 100%;
+    margin-top: 28px;
+  }
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1105,7 +1362,13 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
     <span onclick="openGallerySearch()" style="cursor:pointer">
       <img src="icon_search.png" alt="search" width="15px">
     </span>
-    <span><img src="icon_profile.png" alt="profile" width="15px"></span><span><img src="icon_heart.png" alt="heart" width="15px"></span></div>
+    <span onclick="showPage('mypage')" style="cursor:pointer">
+      <img src="icon_profile.png" alt="mypage" width="15px">
+    </span>
+    <span onclick="showPage('wishlist')" style="cursor:pointer">
+      <img src="icon_heart.png" alt="wishlist" width="15px">
+    </span>
+</div>
 
 </header>
 
@@ -1188,6 +1451,56 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
   <p class="gallery-search-empty" id="gallerySearchEmpty">검색 결과가 없습니다.</p>
 
   <div style="text-align:center;margin-top:55px"><button class="cta" onclick="showPage('create')">MAKE YOUR OWN LOOK  ↗</button></div>
+
+</section>
+
+<!-- WISHLIST PAGE -->
+<section id="wishlist" class="page section">
+
+  <div class="section-head">
+    <div class="eyebrow">YOUR FAVORITES</div>
+    <h2>MY WISHLIST</h2>
+    <p>마음에 드는 룩북을 모아보세요.</p>
+  </div>
+
+  <div class="toolbar">
+    <span>MY FAVORITE LOOKS</span>
+    <span>♥ LIKED LOOKBOOKS</span>
+  </div>
+
+  <div class="gallery-grid" id="wishlistGrid"></div>
+
+  <p id="wishlistEmpty" style="display:none; text-align:center; padding:60px 0;">
+    아직 좋아요를 누른 룩북이 없어요.
+  </p>
+
+</section>
+
+<!-- MY PAGE -->
+<section id="mypage" class="page section">
+
+  <div class="section-head">
+    <div class="eyebrow">YOUR OWN STYLE</div>
+    <h2>MY PAGE</h2>
+    <p>내가 직접 완성하고 공유한 룩북을 모아보세요.</p>
+  </div>
+
+  <div class="toolbar">
+    <span>MY LOOKBOOKS</span>
+    <span>MY OWN STYLE</span>
+  </div>
+
+  <div class="gallery-grid" id="myLookbookGrid"></div>
+
+  <p id="myLookbookEmpty" style="display:none; text-align:center; padding:60px 0;">
+    아직 등록한 룩북이 없어요.
+  </p>
+
+  <div style="text-align:center; margin-top:55px;">
+    <button class="cta" onclick="showPage('create')">
+      CREATE YOUR LOOK ↗
+    </button>
+  </div>
 
 </section>
 
@@ -1436,6 +1749,18 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 
         <div class="detail-date" id="detailDate"></div>
 
+        <!-- 착용 상품 정보 -->
+        <div class="detail-products-section" id="detailProductsSection">
+          <div class="detail-products-heading">
+            <span>SHOP THE LOOK</span>
+            <p>이 룩에 사용된 상품</p>
+          </div>
+
+          <div id="detailProducts">
+            <p class="detail-products-empty">상품 정보를 불러오는 중...</p>
+          </div>
+        </div>
+
         <!-- 좋아요는 팝업 안에서만 가능 -->
 
         <button class="detail-like" id="detailLike"
@@ -1497,6 +1822,8 @@ footer{font-weight:400; border-top:1px solid var(--line);padding:42px 5%;display
 <footer><div class="footlogo"><img src="f_LOGO.png" alt="logo" width="30px"></div><div>CONTACT   FAQ<br><br>MON–FRI 10:00AM–6:30PM<br>© CEST MOIDEW</div><div>SHOP GUIDE   TERMS OF USE   PRIVACY POLICY</div><div><a href="https://instagram.com/cestmoidew_official/" target="_blank"     rel="noopener noreferrer">INSTAGRAM ↗</a></div></footer>
 
 <div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 
@@ -1839,80 +2166,23 @@ function submitLook() {
 
 
 async function downloadLookbook() {
-  const title = (
-    document.getElementById('uploadTitle')?.value.trim()
-    || 'my-lookbook'
-  ).replace(/[\\/:*?"<>|]/g, '-');
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = 900;
-  canvas.height = 1100;
-
-  ctx.fillStyle = '#f8f5ee';
-  ctx.fillRect(0, 0, 900, 1100);
-
-  ctx.fillStyle = '#25231f';
-  ctx.textAlign = 'center';
-  ctx.font = '48px Georgia';
-  ctx.fillText(title, 450, 100);
-
-  ctx.fillStyle = '#a17e64';
-  ctx.font = '18px Georgia';
-  ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
-
-  const positions = {
-    OUTER: { x: 200, y: 220, w: 500, h: 380 },
-    TOP: { x: 260, y: 250, w: 380, h: 300 },
-    BOTTOM: { x: 290, y: 400, w: 320, h: 330 }
-  };
-
-  const order = ['TOP', 'BOTTOM', 'OUTER'];
-
   try {
-    const loadedImages = {};
+    const image = await createLookbookImage();
 
-    await Promise.all(order.map(cat => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-          loadedImages[cat] = img;
-          resolve();
-        };
-        img.onerror = reject;
-        img.src = selected[cat].img;
-      });
-    }));
-
-    order.forEach(cat => {
-      const img = loadedImages[cat];
-      const p = positions[cat];
-
-      const ratio = Math.min(
-        p.w / img.naturalWidth,
-        p.h / img.naturalHeight
-      );
-
-      const w = img.naturalWidth * ratio;
-      const h = img.naturalHeight * ratio;
-
-      const x = p.x + (p.w - w) / 2;
-      const y = p.y + (p.h - h) / 2;
-
-      ctx.globalAlpha = cat === 'TOP' ? 0.25 : 1;
-      ctx.drawImage(img, x, y, w, h);
-      ctx.globalAlpha = 1;
-    });
+    const title = (
+      document.getElementById('uploadTitle')?.value.trim()
+      || 'my-lookbook'
+    ).replace(/[\\/:*?"<>|]/g, '-');
 
     const link = document.createElement('a');
     link.download = title + '.png';
-    link.href = canvas.toDataURL('image/png');
+    link.href = image;
     link.click();
 
     toast('다운로드를 시작했어요.');
   } catch (error) {
-    toast('이미지를 불러오지 못했어요. 다시 시도해 주세요.');
+    console.error('룩북 다운로드 오류:', error);
+    toast('이미지를 저장하지 못했어요.');
   }
 }
 
@@ -2072,73 +2342,79 @@ function closeUploadModal() {
 // 선택한 옷 이미지로 룩북 PNG 생성
 
 
-function createLookbookImage() {
-  return new Promise((resolve, reject) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+async function createLookbookImage() {
+  const stage = document.querySelector(
+    '#completeLook .mannequin-stage'
+  );
 
-    canvas.width = 900;
-    canvas.height = 1100;
+  if (!stage) {
+    throw new Error('룩북 미리보기 영역을 찾을 수 없습니다.');
+  }
 
-    ctx.fillStyle = '#f8f5ee';
-    ctx.fillRect(0, 0, 900, 1100);
+  // 이미지가 모두 로드될 때까지 대기
+  const images = Array.from(stage.querySelectorAll('img'));
 
-    const title = document.getElementById('uploadTitle').value.trim();
+  await Promise.all(
+    images.map(img => {
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
+      }
 
-    ctx.fillStyle = '#25231f';
-    ctx.textAlign = 'center';
-    ctx.font = '48px Georgia';
-    ctx.fillText(title, 450, 100, 800);
-
-    ctx.fillStyle = '#a17e64';
-    ctx.font = '18px Georgia';
-    ctx.fillText("C'EST MOIDEW — MY LOOKBOOK", 450, 145);
-
-    const positions = {
-      OUTER: { x: 200, y: 220, w: 500, h: 380 },
-      TOP: { x: 260, y: 250, w: 380, h: 300 },
-      BOTTOM: { x: 290, y: 400, w: 320, h: 330 }
-    };
-
-    const order = ['TOP', 'BOTTOM', 'OUTER'];
-
-    Promise.all(order.map(cat => {
-      return new Promise((res, rej) => {
-        const img = new Image();
-        img.onload = () => res({ cat, img });
-        img.onerror = rej;
-        img.src = selected[cat].img;
+      return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
       });
-    }))
-    .then(results => {
-      results.forEach(({ cat, img }) => {
-        const p = positions[cat];
-
-        const ratio = Math.min(
-          p.w / img.naturalWidth,
-          p.h / img.naturalHeight
-        );
-
-        const w = img.naturalWidth * ratio;
-        const h = img.naturalHeight * ratio;
-
-        ctx.globalAlpha = cat === 'TOP' ? 0.25 : 1;
-
-        ctx.drawImage(
-          img,
-          p.x + (p.w - w) / 2,
-          p.y + (p.h - h) / 2,
-          w,
-          h
-        );
-
-        ctx.globalAlpha = 1;
-      });
-
-      resolve(canvas.toDataURL('image/png'));
     })
-    .catch(reject);
+  );
+
+  // 실제 미리보기 영역 캡처
+  const capturedCanvas = await html2canvas(stage, {
+    backgroundColor: null,
+    scale: 2,
+    useCORS: true,
+    logging: false
   });
+
+  // 최종 룩북 이미지 생성
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = 900;
+  canvas.height = 1100;
+
+  // 배경
+  ctx.fillStyle = '#f8f5ee';
+  ctx.fillRect(0, 0, 900, 1100);
+
+  // 제목
+  const title =
+    document.getElementById('uploadTitle')?.value.trim()
+    || 'my-lookbook';
+
+  ctx.fillStyle = '#25231f';
+  ctx.textAlign = 'center';
+  ctx.font = '48px Georgia';
+  ctx.fillText(title, 450, 100, 800);
+
+  // 브랜드 문구
+  ctx.fillStyle = '#a17e64';
+  ctx.font = '18px Georgia';
+  ctx.fillText(
+    "C'EST MOIDEW — MY LOOKBOOK",
+    450,
+    145
+  );
+
+  // 캡처한 미리보기 이미지를 그대로 배치
+  ctx.drawImage(
+    capturedCanvas,
+    125,
+    180,
+    650,
+    780
+  );
+
+  return canvas.toDataURL('image/png');
 }
 
 
@@ -2185,7 +2461,53 @@ function addGalleryCard(item) {
 
 // 업로드 및 저장
 
-// Supabase에 룩북 이미지와 게시글 저장
+// 상품명 비교용: 예약배송 문구 제거
+function normalizeProductName(name) {
+  return String(name || '')
+    .replace(/^\d{1,2}\/\d{1,2}\s*예약배송[_\s]*/i, '')
+    .trim()
+    .toLowerCase();
+}
+
+// 현재 선택한 상품의 Supabase ID 찾기
+async function getSelectedProductIds() {
+  const { data: products, error } = await supabaseClient
+    .from('products')
+    .select('id, name, category')
+    .eq('is_active', true);
+
+  if (error) throw error;
+
+  const productIds = {};
+
+  for (const category of ['OUTER', 'TOP', 'BOTTOM']) {
+    const selectedItem = selected[category];
+
+    if (!selectedItem) {
+      throw new Error(`${category} 상품이 선택되지 않았습니다.`);
+    }
+
+    const matchedProduct = products.find(product =>
+      product.category === category &&
+      normalizeProductName(product.name) ===
+      normalizeProductName(selectedItem.name)
+    );
+
+    if (!matchedProduct) {
+      throw new Error(
+        `${category} 상품을 products 테이블에서 찾을 수 없습니다: ${selectedItem.name}`
+      );
+    }
+
+    productIds[category] = matchedProduct.id;
+  }
+
+  console.log('선택된 상품:', selected);
+  console.log('조회된 상품 ID:', productIds);
+
+
+  return productIds;
+}
 
 // Supabase에 룩북 이미지와 게시글 저장
 let isUploadingLookbook = false;
@@ -2250,35 +2572,52 @@ async function confirmUploadLookbook() {
 
     const imageUrl = urlData.publicUrl;
 
-    // 6. 게시글 정보를 데이터베이스에 저장
+    // 6. 선택한 상품의 DB ID 가져오기
+    const productIds = await getSelectedProductIds();
+    console.log('DB 저장 직전 상품 ID:', productIds);
+
+    // 7. 게시글과 상품 ID를 함께 데이터베이스에 저장
     const { data, error: insertError } = await supabaseClient
       .from('lookbooks')
       .insert([{
         title: title,
         note: note,
-        image_url: imageUrl
+        image_url: imageUrl,
+
+        // 작성자 ID
+        visitor_id: getVisitorId(),
+
+        outer_product_id: productIds.OUTER,
+        top_product_id: productIds.TOP,
+        bottom_product_id: productIds.BOTTOM
       }])
       .select()
       .single();
 
     if (insertError) throw insertError;
 
-    console.log('저장된 룩북:', data);
-
-    // 7. 새 게시글을 공용 목록에 즉시 추가
+    // 8. 새 게시글을 공용 목록에 즉시 추가
     const newItem = {
       id: String(data.id),
       title: data.title,
       note: data.note || '',
       image: data.image_url,
       date: data.created_at,
+
+      // 작성자 ID
+      visitor_id: data.visitor_id,
+
+      outer_product_id: data.outer_product_id,
+      top_product_id: data.top_product_id,
+      bottom_product_id: data.bottom_product_id,
+
       likes: 0,
       liked: false
     };
 
     sharedLookbooks.unshift(newItem);
 
-    // 8. 갤러리 즉시 갱신
+    // 9. 갤러리 즉시 갱신
     renderSavedLookbooks();
 
     closeUploadModal();
@@ -2339,6 +2678,15 @@ async function loadSavedLookbooks() {
         note: item.note || '',
         image: item.image_url,
         date: item.created_at,
+
+        // 작성자 ID
+        visitor_id: item.visitor_id,
+
+        // 룩북에 연결된 상품 ID
+        outer_product_id: item.outer_product_id,
+        top_product_id: item.top_product_id,
+        bottom_product_id: item.bottom_product_id,
+
         likes: itemLikes.length,
         liked: itemLikes.some(
           like => like.visitor_id === visitorId
@@ -2425,6 +2773,178 @@ function saveLookbooks(data){
 
 // ===================================
 
+async function loadDetailProducts(item) {
+  const section = document.getElementById('detailProductsSection');
+  const container = document.getElementById('detailProducts');
+
+  if (!section || !container) {
+    console.error('상품 정보 영역(detailProductsSection 또는 detailProducts)을 찾을 수 없습니다.');
+    return;
+  }
+
+  const productIds = [
+    { category: 'OUTER', id: item.outer_product_id },
+    { category: 'TOP', id: item.top_product_id },
+    { category: 'BOTTOM', id: item.bottom_product_id }
+  ].filter(product => product.id);
+
+  console.log('상세 룩북 데이터:', item);
+  console.log('전달된 상품 ID:', productIds);
+
+  if (productIds.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  container.innerHTML =
+    '<p class="detail-products-empty">상품 정보를 불러오는 중...</p>';
+
+  try {
+    const ids = productIds.map(product => product.id);
+
+    const { data, error } = await supabaseClient
+      .from('products')
+      .select('*')
+      .in('id', ids);
+
+    if (error) throw error;
+
+    container.innerHTML = '';
+
+    productIds.forEach(({ category, id }) => {
+      const product = data.find(
+        item => String(item.id) === String(id)
+      );
+
+      if (!product) return;
+
+      const row = document.createElement('div');
+      row.className = 'detail-product-item';
+
+      if (product.image_url) {
+        const img = document.createElement('img');
+        img.src = product.image_url;
+        img.alt = product.name;
+        row.appendChild(img);
+      } else {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'detail-product-placeholder';
+        placeholder.textContent = 'NO IMAGE';
+        row.appendChild(placeholder);
+      }
+
+      const info = document.createElement('div');
+      info.className = 'detail-product-info';
+
+      const categoryLabel = document.createElement('span');
+      categoryLabel.className = 'detail-product-category';
+      categoryLabel.textContent = category;
+
+      const name = document.createElement('div');
+      name.className = 'detail-product-name';
+      name.textContent = product.name.replace(
+        /^\d{1,2}\/\d{1,2}\s*예약배송[_\s]*/i, ''
+      );
+
+      info.appendChild(categoryLabel);
+      info.appendChild(name);
+
+      if (product.brand) {
+        const brand = document.createElement('div');
+        brand.className = 'detail-product-brand';
+        brand.textContent = product.brand;
+        info.appendChild(brand);
+      }
+
+      const price = document.createElement('div');
+      price.className = 'detail-product-price';
+
+      if (
+        product.original_price &&
+        Number(product.original_price) > Number(product.price)
+      ) {
+        const original = document.createElement('span');
+        original.className = 'detail-product-original';
+        original.textContent =
+          Number(product.original_price).toLocaleString('ko-KR') + '원';
+        price.appendChild(original);
+      }
+
+      price.append(
+        product.price != null
+          ? Number(product.price).toLocaleString('ko-KR') + '원'
+          : '가격 정보 없음'
+      );
+
+      info.appendChild(price);
+
+      if (product.shipping_note) {
+        const shipping = document.createElement('div');
+        shipping.className = 'detail-product-brand';
+        shipping.textContent = product.shipping_note;
+        info.appendChild(shipping);
+      }
+
+      if (product.product_url) {
+        try {
+          const url = new URL(product.product_url);
+
+          if (url.protocol === 'https:' || url.protocol === 'http:') {
+
+            // 상품 정보 영역 전체 클릭 가능
+            row.style.cursor = 'pointer';
+            row.setAttribute('role', 'link');
+            row.setAttribute('tabindex', '0');
+
+            row.addEventListener('click', () => {
+              window.open(url.href, '_blank', 'noopener,noreferrer');
+            });
+
+            // 키보드 접근성 지원
+            row.addEventListener('keydown', (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                window.open(url.href, '_blank', 'noopener,noreferrer');
+              }
+            });
+
+            // 기존 VIEW PRODUCT 링크 유지
+            const link = document.createElement('a');
+            link.className = 'detail-product-link';
+            link.href = url.href;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'VIEW PRODUCT ↗';
+
+            // 링크 자체를 누를 때 중복 실행 방지
+            link.addEventListener('click', (event) => {
+              event.stopPropagation();
+            });
+
+            info.appendChild(link);
+          }
+        } catch (error) {
+          console.warn('상품 링크 형식 확인 필요:', product.product_url);
+        }
+      }
+
+      row.appendChild(info);
+      container.appendChild(row);
+    });
+
+    if (!container.children.length) {
+      container.innerHTML =
+        '<p class="detail-products-empty">연결된 상품 정보가 없습니다.</p>';
+    }
+
+  } catch (error) {
+    console.error('상품 정보 불러오기 오류:', error);
+    container.innerHTML =
+      '<p class="detail-products-empty">상품 정보를 불러오지 못했어요.</p>';
+  }
+}
+
 function openLookbookDetail(id, type, card){
 
   let item;
@@ -2479,7 +2999,35 @@ function openLookbookDetail(id, type, card){
 
   document.getElementById('detailModal').classList.add('show');
 
+  // 룩북에 연결된 상품 정보 불러오기
+  loadDetailProducts(item);
+
 }
+
+// 룩북 이미지 확대
+function openImageZoom() {
+  const originalImage = document.getElementById('detailImage');
+  const zoomModal = document.getElementById('imageZoomModal');
+  const zoomedImage = document.getElementById('zoomedImage');
+
+  zoomedImage.src = originalImage.src;
+  zoomModal.classList.add('show');
+}
+
+// 확대 이미지 닫기
+function closeImageZoom() {
+  document.getElementById('imageZoomModal').classList.remove('show');
+}
+
+// ESC 키로 확대 이미지 닫기
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeImageZoom();
+  }
+});
+
+// 상세 팝업의 룩북 이미지 클릭 이벤트
+document.getElementById('detailImage').addEventListener('click', openImageZoom);
 
 // ===================================
 
@@ -2813,7 +3361,97 @@ function renderSavedLookbooks() {
   getSavedLookbooks().forEach(item => {
     addGalleryCard(item);
   });
+
+  // 위시리스트와 마이페이지도 함께 갱신
+  renderWishlist();
+  renderMyLookbooks();
 }
+
+
+// ===================================
+// 위시리스트 / 마이페이지 카드 출력
+// ===================================
+
+function renderPersonalLookbookList(gridId, emptyId, items) {
+  const grid = document.getElementById(gridId);
+  const emptyMessage = document.getElementById(emptyId);
+
+  if (!grid || !emptyMessage) return;
+
+  grid.innerHTML = '';
+
+  emptyMessage.style.display =
+    items.length === 0 ? 'block' : 'none';
+
+  items.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'look-card user-look-card';
+    card.dataset.id = item.id;
+
+    const img = document.createElement('img');
+    img.src = item.image;
+    img.alt = item.title;
+
+    const meta = document.createElement('div');
+    meta.className = 'look-meta';
+
+    const title = document.createElement('strong');
+    title.textContent = item.title;
+
+    const likes = document.createElement('span');
+    likes.textContent = `♥ ${item.likes || 0}`;
+
+    meta.appendChild(title);
+    meta.appendChild(likes);
+
+    card.appendChild(img);
+    card.appendChild(meta);
+
+    if (item.note) {
+      const note = document.createElement('p');
+      note.className = 'sample-note';
+      note.textContent = item.note;
+      card.appendChild(note);
+    }
+
+    card.onclick = () => {
+      openLookbookDetail(item.id, 'user');
+    };
+
+    grid.appendChild(card);
+  });
+}
+
+
+// 위시리스트: 내가 좋아요 한 룩북만 출력
+function renderWishlist() {
+  const likedLookbooks = sharedLookbooks.filter(
+    item => item.liked === true
+  );
+
+  renderPersonalLookbookList(
+    'wishlistGrid',
+    'wishlistEmpty',
+    likedLookbooks
+  );
+}
+
+
+// 마이페이지: 내가 만든 룩북만 출력
+function renderMyLookbooks() {
+  const visitorId = getVisitorId();
+
+  const myLookbooks = sharedLookbooks.filter(
+    item => item.visitor_id === visitorId
+  );
+
+  renderPersonalLookbookList(
+    'myLookbookGrid',
+    'myLookbookEmpty',
+    myLookbooks
+  );
+}
+
 
 // ===================================
 
@@ -2905,9 +3543,22 @@ function filterGalleryByTitle() {
 
 </script>
 
+<!-- 룩북 이미지 확대 모달 -->
+<div id="imageZoomModal" onclick="closeImageZoom()">
+
+  <button
+    id="imageZoomClose"
+    onclick="closeImageZoom()"
+    aria-label="이미지 확대 닫기"
+  >×</button>
+
+  <img
+    id="zoomedImage"
+    src=""
+    alt="확대된 룩북 이미지"
+    onclick="event.stopPropagation()"
+  >
+
+</div>
+
 </body></html>
-
-
-
-
-
